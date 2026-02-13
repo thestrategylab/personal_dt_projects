@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐱 Guess Where We're Going, Alishu! 🐱</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe4ec 30%, #e0f7fa 70%, #b2ebf2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .hearts { position: fixed; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; z-index: -1; }
+        .heart { position: absolute; animation: fall linear infinite; opacity: 0.5; }
+        @keyframes fall { 0% { transform: translateY(-100px) rotate(0deg); opacity: 0.6; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        .container {
+            background: rgba(255,255,255,0.98);
+            border-radius: 30px;
+            padding: 32px 26px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(220,53,69,0.12), 0 10px 30px rgba(77,182,172,0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255,182,193,0.3);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,105,135,0.06), transparent, rgba(77,182,172,0.04), transparent);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+        }
+        @keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+
+        .paw-decoration { position: absolute; font-size: 1.2rem; opacity: 0.2; }
+        .paw-1 { top: 8px; left: 10px; transform: rotate(-20deg); }
+        .paw-2 { top: 8px; right: 10px; transform: rotate(20deg); }
+        .paw-3 { bottom: 8px; left: 10px; transform: rotate(-10deg); }
+        .paw-4 { bottom: 8px; right: 10px; transform: rotate(10deg); }
+
+        .stage { display: none; animation: fadeIn 0.5s ease; }
+        .stage.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.4rem; color: #dc3545; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(220,53,69,0.15); }
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #2c3e50; margin-bottom: 10px; font-weight: 600; }
+        p { color: #555; line-height: 1.7; margin-bottom: 12px; font-size: 1.02rem; }
+
+        .emoji-big { font-size: 3.5rem; margin: 12px 0; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.1); } 50% { transform: scale(1); } 75% { transform: scale(1.1); } }
+        .cat-curious { animation: curious-wiggle 1.5s ease-in-out infinite; display: inline-block; }
+        @keyframes curious-wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+
+        .nickname-highlight { color: #dc3545; font-weight: 700; }
+        .nickname-turquoise { color: #26a69a; font-weight: 700; }
+
+        .progress-bar { width: 100%; height: 8px; background: linear-gradient(90deg, #ffe4ec, #e0f7fa); border-radius: 10px; margin-bottom: 22px; overflow: hidden; border: 1px solid rgba(255,182,193,0.3); }
+        .progress { height: 100%; background: linear-gradient(90deg, #dc3545, #ff6b7a, #4db6ac); border-radius: 10px; transition: width 0.5s ease; }
+
+        .activity-badge {
+            background: linear-gradient(135deg, #dc3545, #c82333); color: white;
+            width: 40px; height: 40px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1.1rem; margin-bottom: 8px;
+            box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #dc3545, #c82333); color: white; border: none;
+            padding: 13px 32px; font-size: 1rem; border-radius: 50px; cursor: pointer;
+            transition: all 0.3s ease; font-family: 'Poppins', sans-serif; font-weight: 600;
+            box-shadow: 0 5px 25px rgba(220,53,69,0.3); margin: 8px 5px;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(220,53,69,0.4); }
+        .btn-secondary { background: linear-gradient(135deg, #4db6ac, #26a69a); box-shadow: 0 5px 25px rgba(77,182,172,0.3); }
+        .btn-secondary:hover { box-shadow: 0 8px 30px rgba(77,182,172,0.4); }
+        .btn-small { padding: 10px 22px; font-size: 0.9rem; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+
+        .reveal-box {
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec, #e8f5f4);
+            border: 3px solid #ffb6c1; border-radius: 25px; padding: 22px; margin: 15px 0;
+            box-shadow: 0 10px 30px rgba(255,182,193,0.2); animation: revealPop 0.5s ease;
+        }
+        @keyframes revealPop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.05); } 100% { transform: scale(1); opacity: 1; } }
+        .reveal-emoji { font-size: 2.8rem; margin-bottom: 8px; }
+        .reveal-title { font-family: 'Dancing Script', cursive; font-size: 1.7rem; color: #dc3545; margin-bottom: 6px; }
+        .reveal-detail { color: #666; font-size: 0.9rem; }
+
+        .bollywood-meme {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%);
+            border: 3px solid #e74c3c; border-radius: 20px; padding: 16px; margin: 12px 0;
+            box-shadow: 0 6px 20px rgba(231,76,60,0.2);
+        }
+        .bollywood-meme .movie-name { font-size: 0.75rem; color: #c0392b; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+        .bollywood-meme .dialogue { font-size: 1.15rem; font-weight: 700; color: #2c3e50; line-height: 1.4; }
+        .bollywood-meme .character { font-size: 0.8rem; color: #666; margin-top: 6px; font-style: italic; }
+
+        .cat-thought {
+            background: white; border: 2px solid #e0e0e0; border-radius: 18px;
+            padding: 10px 16px; margin: 10px auto; max-width: 88%;
+            font-style: italic; color: #888; font-size: 0.88rem; position: relative;
+        }
+        .cat-thought::after { content: '🐾'; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; }
+
+        .reaction-row { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; margin: 10px 0; }
+        .btn-reaction {
+            background: white; border: 2px solid #ffb6c1; padding: 8px 14px; border-radius: 15px;
+            cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; font-family: 'Poppins', sans-serif;
+        }
+        .btn-reaction:hover { background: linear-gradient(135deg, #dc3545, #ff6b7a); color: white; border-color: #dc3545; transform: scale(1.05); }
+        .btn-reaction.selected { background: linear-gradient(135deg, #dc3545, #ff6b7a); color: white; border-color: #dc3545; }
+
+        .hidden { display: none !important; }
+
+        .confetti { position: fixed; width: 10px; height: 10px; top: -10px; animation: confetti-fall 3s linear forwards; z-index: 1000; }
+        @keyframes confetti-fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        .score-card { background: linear-gradient(135deg, #fff5f7, #ffe4ec); border: 2px solid #ffb6c1; border-radius: 15px; padding: 15px; margin: 10px 0; display: inline-block; }
+        .score-number { font-size: 2.5rem; font-weight: 700; color: #dc3545; font-family: 'Dancing Script', cursive; }
+        .score-label { font-size: 0.82rem; color: #999; }
+
+        .music-control {
+            position: fixed; bottom: 20px; right: 20px;
+            background: linear-gradient(135deg, #dc3545, #c82333); color: white; border: none;
+            width: 52px; height: 52px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
+            box-shadow: 0 5px 25px rgba(220,53,69,0.35); z-index: 1000;
+            transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .music-control:hover { transform: scale(1.1); }
+
+        /* ===== GAME 1: EMOJI DECODER ===== */
+        .emoji-puzzle { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 15px 0; }
+        .emoji-puzzle .ep-item {
+            font-size: 2.2rem; background: linear-gradient(135deg, #fff5f7, #ffe4ec);
+            border-radius: 15px; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #ffb6c1; box-shadow: 0 3px 10px rgba(255,182,193,0.2);
+        }
+        .emoji-decode-input {
+            width: 100%; padding: 12px 18px; border: 2px solid #ffb6c1; border-radius: 15px;
+            font-size: 1rem; font-family: 'Poppins', sans-serif; outline: none; text-align: center;
+            transition: border-color 0.3s ease;
+        }
+        .emoji-decode-input:focus { border-color: #dc3545; box-shadow: 0 0 12px rgba(220,53,69,0.12); }
+        .emoji-decode-hint { font-size: 0.85rem; color: #aaa; margin: 8px 0; cursor: pointer; }
+        .emoji-decode-hint:hover { color: #dc3545; }
+
+        /* ===== GAME 2: HOT & COLD ===== */
+        .hotcold-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .hotcold-card {
+            background: white; border: 2px solid #e0e0e0; border-radius: 18px;
+            padding: 18px 10px; cursor: pointer; transition: all 0.4s ease; text-align: center;
+        }
+        .hotcold-card:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .hotcold-card .hc-emoji { font-size: 2rem; margin-bottom: 6px; }
+        .hotcold-card .hc-name { font-weight: 600; font-size: 0.9rem; color: #2c3e50; }
+        .hotcold-card.freezing { border-color: #42a5f5; background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+        .hotcold-card.cold { border-color: #66bb6a; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+        .hotcold-card.warm { border-color: #ffa726; background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+        .hotcold-card.hot { border-color: #ef5350; background: linear-gradient(135deg, #ffebee, #ffcdd2); }
+        .hotcold-card.correct { border-color: #4db6ac; background: linear-gradient(135deg, #e0f7fa, #b2ebf2); animation: revealPop 0.5s ease; }
+        .temp-indicator {
+            padding: 8px 20px; border-radius: 25px; font-weight: 600; font-size: 1.1rem;
+            display: inline-block; margin: 10px 0; transition: all 0.3s ease;
+        }
+
+        /* ===== GAME 3: SCRATCH CARDS ===== */
+        .scratch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
+        .scratch-card {
+            aspect-ratio: 1; border-radius: 18px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; transition: all 0.5s ease; position: relative;
+            background: linear-gradient(135deg, #dc3545, #ff6b7a);
+            box-shadow: 0 4px 15px rgba(220,53,69,0.25);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .scratch-card::before {
+            content: '?'; color: white; font-weight: 700; font-size: 1.8rem;
+            font-family: 'Poppins', sans-serif; position: absolute;
+        }
+        .scratch-card.revealed {
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec);
+            border: 2px solid #ffb6c1;
+            box-shadow: 0 4px 15px rgba(255,182,193,0.3);
+            animation: scratchReveal 0.4s ease;
+        }
+        .scratch-card.revealed::before { content: none; }
+        @keyframes scratchReveal { 0% { transform: rotateY(90deg); } 100% { transform: rotateY(0); } }
+        .scratch-message { font-weight: 600; color: #dc3545; min-height: 28px; margin: 5px 0; font-size: 0.95rem; }
+
+        /* ===== GAME 4: BUILD YOUR EVENING ===== */
+        .menu-board {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px; padding: 20px; margin: 15px 0;
+            border: 2px solid #4db6ac;
+        }
+        .menu-title { color: #4db6ac; font-family: 'Dancing Script', cursive; font-size: 1.4rem; margin-bottom: 12px; }
+        .menu-category { color: #ffb6c1; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin: 12px 0 6px; text-align: left; }
+        .menu-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+        .menu-item {
+            background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15);
+            color: #e0e0e0; padding: 8px 14px; border-radius: 12px; cursor: pointer;
+            transition: all 0.3s ease; font-size: 0.85rem; font-family: 'Poppins', sans-serif;
+        }
+        .menu-item:hover { background: rgba(77,182,172,0.2); border-color: #4db6ac; }
+        .menu-item.selected { background: linear-gradient(135deg, #4db6ac, #26a69a); color: white; border-color: #4db6ac; }
+        .menu-item.correct { background: linear-gradient(135deg, #4db6ac, #26a69a); color: white; border-color: #4db6ac; animation: pulse 0.3s ease; }
+        .menu-item.wrong { background: rgba(220,53,69,0.3); border-color: #dc3545; color: #ff9a9e; animation: shake 0.4s ease; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+        .menu-score { color: #ffd700; font-weight: 600; font-size: 0.9rem; margin-top: 10px; }
+
+        /* ===== GAME 5: SPIN WHEEL ===== */
+        .wheel-wrapper { position: relative; margin: 15px auto; width: 260px; height: 260px; }
+        .wheel-canvas { width: 260px; height: 260px; border-radius: 50%; border: 4px solid #dc3545; box-shadow: 0 8px 30px rgba(220,53,69,0.25); }
+        .wheel-pointer {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 2rem; z-index: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .wheel-center {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 45px; height: 45px; background: white; border-radius: 50%;
+            border: 3px solid #dc3545; display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; z-index: 5; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <button class="music-control" id="music-btn" onclick="toggleMusic()">🔇</button>
+
+    <div class="container">
+        <span class="paw-decoration paw-1">🐾</span>
+        <span class="paw-decoration paw-2">🐾</span>
+        <span class="paw-decoration paw-3">🐾</span>
+        <span class="paw-decoration paw-4">🐾</span>
+
+        <!-- ===== STAGE 0: WELCOME ===== -->
+        <div class="stage active" id="stage0">
+            <div class="emoji-big"><span class="cat-curious">🐱</span></div>
+            <h1>Hey Alishu!</h1>
+            <p>Your <span class="nickname-highlight">Gold Fish</span> has planned the day...</p>
+            <p>But this time, <strong>YOU</strong> have to guess each activity through <strong>5 fun games</strong>! 🕵️‍♀️</p>
+            <div class="cat-thought">Curiosity didn't kill the cat... it made the date better 😼</div>
+            <p style="font-size: 0.82rem; color: #aaa;">🔊 Turn on sound for the full experience!</p>
+            <button class="btn" onclick="startGame()">I'm Ready to Play! 🐾</button>
+        </div>
+
+        <!-- ===== STAGE 1: HOW IT WORKS ===== -->
+        <div class="stage" id="stage1">
+            <div class="progress-bar"><div class="progress" style="width: 5%"></div></div>
+            <h2>How This Works 🐾</h2>
+            <div class="emoji-big">🎮</div>
+            <p>DT planned <strong>5 activities</strong> — each hidden behind a <strong>different game</strong>!</p>
+            <p style="font-size: 0.95rem;">🧩 Guess The Place - Decode Your Way <br>🔥 Where Are We Headed? <br>🎪 Scratch to Reveal<br>🍽️ Let's Build The Evening<br>🎡 Spin the wheel</p>
+            <div class="cat-thought">Each game is different — no two are the same! 😼</div>
+            <button class="btn" onclick="nextStageWithSound()">Let's Go! 🚗💨</button>
+        </div>
+
+        <!-- ===== GAME 1: EMOJI DECODER — Grammar Room ===== -->
+        <div class="stage" id="stage2">
+            <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
+            <div class="activity-badge">1</div>
+            <h2>🧩 Emoji Decoder!</h2>
+            <p>Decode these emojis to guess our <strong>first stop</strong>, <span class="nickname-turquoise">Aloo</span>!</p>
+
+            <div class="emoji-puzzle">
+                <div class="ep-item">📖</div>
+                <div class="ep-item">+</div>
+                <div class="ep-item">🏠</div>
+                <div class="ep-item">+</div>
+                <div class="ep-item">🥂</div>
+            </div>
+            <p style="font-size: 0.85rem; color: #999;">📖 = Something you study in school... 🏠 = A type of space... 🥂 = Make it boozy!</p>
+
+            <input type="text" class="emoji-decode-input" id="emoji-guess" placeholder="What place is this? 🤔" onkeypress="if(event.key==='Enter') checkEmojiGuess()">
+
+            <p class="emoji-decode-hint" id="emoji-hint-1" onclick="showEmojiHint(1)">💡 Need a hint? Tap here!</p>
+            <p class="emoji-decode-hint hidden" id="emoji-hint-2" onclick="showEmojiHint(2)">💡 Still stuck? One more hint!</p>
+            <p class="emoji-decode-hint hidden" id="emoji-hint-3">💡 It's at Khan Market and the name sounds like a class about language!</p>
+
+            <div id="emoji-hint-text" style="font-size: 0.88rem; color: #dc3545; font-weight: 500; min-height: 20px; margin: 5px 0;"></div>
+
+            <button class="btn btn-small" onclick="checkEmojiGuess()">That's My Guess! 🎯</button>
+            <button class="btn btn-small btn-secondary" onclick="skipToReveal(1)" style="font-size: 0.8rem;">Skip & Reveal 👀</button>
+        </div>
+
+        <!-- Reveal 1 -->
+        <div class="stage" id="stage3">
+            <div class="progress-bar"><div class="progress" style="width: 18%"></div></div>
+            <div class="reveal-box">
+                <div class="reveal-emoji">🥂🍳</div>
+                <div class="reveal-title">Grammar Room!</div>
+                <p style="color: #555; margin-bottom: 4px;">Boozy Brunch with Some Cute Games Hopefullyyy </p>
+                <p class="reveal-detail">12 noon – 2 PM 🕐</p>
+            </div>
+            <p id="game-result-1" style="font-weight: 600;"></p>
+            <div class="bollywood-meme">
+                <div class="movie-name"> DT Dictionary #1 </div>
+                <div class="dialogue">"Koi bhi plan ho... shuruat brunch se karni chahiye!"</div>
+                <div class="character">— DT's philosophy of life 🍾</div>
+            </div>
+            <div class="reaction-row">
+                <button class="btn-reaction" onclick="selectReaction(this)">🤩 Yesss!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">😍 Love it!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🥂 Cheers!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🐱 Purrfect!</button>
+            </div>
+            <button class="btn" onclick="nextStageWithSound()">What's Next? 🐾</button>
+        </div>
+
+        <!-- ===== GAME 2: HOT & COLD — Sunder Nursery ===== -->
+        <div class="stage" id="stage4">
+            <div class="progress-bar"><div class="progress" style="width: 26%"></div></div>
+            <div class="activity-badge">2</div>
+            <h2>🔥 Hot & Cold!</h2>
+            <p>Tap a location — I'll tell you if you're getting <strong>warmer or colder</strong>! 🐱</p>
+
+            <div id="temp-display" class="temp-indicator" style="background: #e0e0e0; color: #666;">Pick one! 🐾</div>
+
+            <div class="hotcold-grid" id="hotcold-grid">
+                <div class="hotcold-card" onclick="hotColdPick(this, 'freezing')">
+                    <div class="hc-emoji">🛍️</div>
+                    <div class="hc-name">Select City Walk</div>
+                </div>
+                <div class="hotcold-card" onclick="hotColdPick(this, 'cold')">
+                    <div class="hc-emoji">🏛️</div>
+                    <div class="hc-name">India Gate</div>
+                </div>
+                <div class="hotcold-card" onclick="hotColdPick(this, 'warm')">
+                    <div class="hc-emoji">🌺</div>
+                    <div class="hc-name">Lodhi Garden</div>
+                </div>
+                <div class="hotcold-card" onclick="hotColdPick(this, 'hot')">
+                    <div class="hc-emoji">🏯</div>
+                    <div class="hc-name">Humayun's Tomb Area</div>
+                </div>
+                <div class="hotcold-card" onclick="hotColdPick(this, 'correct')" style="grid-column: 1 / -1;">
+                    <div class="hc-emoji">🌿</div>
+                    <div class="hc-name">Sunder Nursery</div>
+                </div>
+            </div>
+            <div class="cat-thought" id="hotcold-thought">Pick a spot and see how close you are! 🔥❄️</div>
+        </div>
+
+        <!-- Reveal 2 -->
+        <div class="stage" id="stage5">
+            <div class="progress-bar"><div class="progress" style="width: 34%"></div></div>
+            <div class="reveal-box">
+                <div class="reveal-emoji">🌿🧺☕</div>
+                <div class="reveal-title">Sunder Nursery!</div>
+                <p style="color: #555; margin-bottom: 4px;"> Walk in The Garden, Hold Hands & some Coffee at the Cafe</p>
+                <p class="reveal-detail">2 PM – 4 PM 🕑</p>
+            </div>
+            <p id="game-result-2" style="font-weight: 600;"></p>
+            <div class="cat-thought">Garden Time with your DTBT ... nature's cutest couple! 🐟🌸</div>
+            <div class="reaction-row">
+                <button class="btn-reaction" onclick="selectReaction(this)">🥺 So cute!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🌿 Nature lover!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">☕ Need coffee!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🐾 Purrfect!</button>
+            </div>
+            <button class="btn" onclick="nextStageWithSound()">Next Game! 🚗</button>
+        </div>
+
+        <!-- ===== GAME 3: SCRATCH CARDS — Dress Shopping ===== -->
+        <div class="stage" id="stage6">
+            <div class="progress-bar"><div class="progress" style="width: 42%"></div></div>
+            <div class="activity-badge">3</div>
+            <h2>🎪 Scratch & Reveal!</h2>
+            <p>Tap the mystery cards to uncover your next surprise, <span class="nickname-highlight">Alish Peesh</span>! 👑</p>
+
+            <div class="scratch-grid" id="scratch-grid">
+                <div class="scratch-card" onclick="scratchCard(this, '👗')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '🛍️')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '💃')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '👠')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '💝')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '✨')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '💸')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '🪞')"></div>
+                <div class="scratch-card" onclick="scratchCard(this, '👑')"></div>
+            </div>
+
+            <p class="scratch-message" id="scratch-msg">Tap the cards! 🐾</p>
+            <p style="font-size: 0.82rem; color: #aaa;" id="scratch-counter">Cards revealed: 0/9</p>
+
+            <button class="btn hidden" id="scratch-guess-btn" onclick="scratchReveal()">I Think I Know! 🎯</button>
+        </div>
+
+        <!-- Reveal 3 -->
+        <div class="stage" id="stage7">
+            <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
+            <div class="reveal-box">
+                <div class="reveal-emoji">👗 🛍️ 👗 </div>
+                <div class="reveal-title">Dress Shopping!</div>
+                <p style="color: #555; margin-bottom: 4px;">Pick Any Dress You Like Today!!!! </p>
+                <p class="reveal-detail">Gold Fish's Treat! 💝 (pls pls be gentle on the wallet 😂)</p>
+            </div>
+            <p id="game-result-3" style="font-weight: 600;"></p>
+            <div class="bollywood-meme">
+                <div class="movie-name"> AG Dictionary #1</div>
+                <div class="dialogue">"Main apni favourite hoon!"</div>
+                <div class="character">— Alisha in every fitting room 😂💕</div>
+            </div>
+            <div class="reaction-row">
+                <button class="btn-reaction" onclick="selectReaction(this)">😍 OMG YES!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">💸 Sorry wallet!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">👗 Fashionista!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🐱 Love this!</button>
+            </div>
+            <button class="btn" onclick="nextStageWithSound()">More?! 😻</button>
+        </div>
+
+        <!-- ===== GAME 4: BUILD YOUR EVENING — Cozy Night ===== -->
+        <div class="stage" id="stage8">
+            <div class="progress-bar"><div class="progress" style="width: 58%"></div></div>
+            <div class="activity-badge">4</div>
+            <h2>🍽️ Build Your Evening!</h2>
+            <p>DT's planned the perfect night in. Pick what you think each element is! 🐱</p>
+
+            <div class="menu-board">
+                <div class="menu-title">✨ Tonight's Menu ✨</div>
+
+                <div class="menu-category">📍 Setting</div>
+                <div class="menu-options" id="menu-setting">
+                    <div class="menu-item" onclick="menuPick(this, 'setting', true)">🕯️ Candlelit at Home</div>
+                    <div class="menu-item" onclick="menuPick(this, 'setting', false)">🍽️ Fancy Restaurant</div>
+                    <div class="menu-item" onclick="menuPick(this, 'setting', false)">🏖️ Rooftop Dinner</div>
+                </div>
+
+                <div class="menu-category">🍜 Main Course</div>
+                <div class="menu-options" id="menu-food">
+                    <div class="menu-item" onclick="menuPick(this, 'food', false)">🍕 Pizza</div>
+                    <div class="menu-item" onclick="menuPick(this, 'food', true)">🍜 Laksa</div>
+                    <div class="menu-item" onclick="menuPick(this, 'food', false)">🍝 Pasta</div>
+                    <div class="menu-item" onclick="menuPick(this, 'food', false)">🍣 Sushi</div>
+                </div>
+
+                <div class="menu-category">🥟 Snacks & Sides</div>
+                <div class="menu-options" id="menu-snacks">
+                    <div class="menu-item" onclick="menuPick(this, 'snacks', false)">🍟 Fries</div>
+                    <div class="menu-item" onclick="menuPick(this, 'snacks', true)">🥟 Momos from Alaknanda</div>
+                    <div class="menu-item" onclick="menuPick(this, 'snacks', true)">🫓 Hummus Pita</div>
+                    <div class="menu-item" onclick="menuPick(this, 'snacks', false)">🌮 Tacos</div>
+                </div>
+
+                <div class="menu-category">🍷 Drinks</div>
+                <div class="menu-options" id="menu-drinks">
+                    <div class="menu-item" onclick="menuPick(this, 'drinks', false)">🍺 Beer</div>
+                    <div class="menu-item" onclick="menuPick(this, 'drinks', true)">🍷 Wine</div>
+                    <div class="menu-item" onclick="menuPick(this, 'drinks', false)">🍸 Cocktails</div>
+                </div>
+
+                <div class="menu-category">🎮 Entertainment</div>
+                <div class="menu-options" id="menu-fun">
+                    <div class="menu-item" onclick="menuPick(this, 'fun', true)">🎮 Video Games</div>
+                    <div class="menu-item" onclick="menuPick(this, 'fun', false)">🃏 Board Games</div>
+                    <div class="menu-item" onclick="menuPick(this, 'fun', true)">🎬 Movie</div>
+                    <div class="menu-item" onclick="menuPick(this, 'fun', false)">📚 Reading Together</div>
+                </div>
+
+                <p class="menu-score" id="menu-score">Score: 0 correct 🐾</p>
+            </div>
+
+            <button class="btn" id="menu-reveal-btn" onclick="menuReveal()">See the Real Plan! 🐾</button>
+        </div>
+
+        <!-- Reveal 4 -->
+        <div class="stage" id="stage9">
+            <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+            <div class="reveal-box">
+                <div class="reveal-emoji">🕯️🎮🍷</div>
+                <div class="reveal-title">Cozy Night at Home!</div>
+                <p style="color: #555; margin-bottom: 4px;">Candlelit Room · Wine · Video Games · Movie</p>
+                <p class="reveal-detail">Laksa + Momos from Alaknanda + Hummus Pita 🥟</p>
+                <p class="reveal-detail" style="margin-top: 4px;">4 PM – 10 PM 🕙</p>
+            </div>
+            <p id="game-result-4" style="font-weight: 600;"></p>
+            <div class="cat-thought">Gold Fish cooked laksa AND ordered momos? That's love, baby 🐟❤️</div>
+            <div class="reaction-row">
+                <button class="btn-reaction" onclick="selectReaction(this)">🥺 This is so us!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🍷 Wine me up!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🎮 Game on!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">😍 Perfect night!</button>
+            </div>
+            <button class="btn" onclick="nextStageWithSound()">Last One! 🐾</button>
+        </div>
+
+        <!-- ===== GAME 5: SPIN THE WHEEL — Night Out ===== -->
+        <div class="stage" id="stage10">
+            <div class="progress-bar"><div class="progress" style="width: 78%"></div></div>
+            <div class="activity-badge">5</div>
+            <h2>🎡 Spin the Wheel!</h2>
+            <p>Spin to reveal the <strong>grand finale</strong> of our day, <span class="nickname-highlight">Alishu</span>! 😼</p>
+
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer">📍</div>
+                <canvas class="wheel-canvas" id="wheelCanvas" width="260" height="260"></canvas>
+                <div class="wheel-center">🐾</div>
+            </div>
+
+            <button class="btn" id="spin-btn" onclick="spinWheel()">Spin It! 🎡</button>
+            <p style="font-size: 0.82rem; color: #aaa;" id="spin-hint">Where the wheel stops... that's where we're going!</p>
+        </div>
+
+        <!-- Reveal 5 -->
+        <div class="stage" id="stage11">
+            <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+            <div class="reveal-box">
+                <div class="reveal-emoji">🍸🕺💃</div>
+                <div class="reveal-title">Night Out!</div>
+                <p style="color: #555; margin-bottom: 4px;">Our Favourite Bar + Maybe Clubbing!</p>
+                <p class="reveal-detail">10 PM onwards... the night is ours! 🌃</p>
+            </div>
+            <p id="game-result-5" style="font-weight: 600;"></p>
+            <div class="bollywood-meme">
+                <div class="movie-name">🎬 Zindagi Na Milegi Dobara</div>
+                <div class="dialogue">"Seize the day... aur seize the night bhi!"</div>
+                <div class="character">— DT & Alisha, every weekend 😎🍸</div>
+            </div>
+            <div class="reaction-row">
+                <button class="btn-reaction" onclick="selectReaction(this)">🔥 Let's gooo!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🕺 Dance time!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">🍸 Cheers baby!</button>
+                <button class="btn-reaction" onclick="selectReaction(this)">😻 Best Day Ever!</button>
+            </div>
+            <button class="btn" onclick="showFinalScore()">See My Score! 🏆</button>
+        </div>
+
+        <!-- ===== FINAL SCORE ===== -->
+        <div class="stage" id="stage12">
+            <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            <div class="emoji-big" style="animation: heartbeat 1.5s infinite;">🏆</div>
+            <h1>You Did It, Alishu!</h1>
+
+            <div class="score-card">
+                <div class="score-label">Games Won</div>
+                <div class="score-number" id="total-score">—</div>
+                <div class="score-label">out of 5</div>
+            </div>
+
+            <p id="score-message" style="font-weight: 600; color: #dc3545; margin-top: 10px;"></p>
+
+            <div style="margin: 15px 0; padding: 18px; background: linear-gradient(135deg, #fff5f7, #ffe4ec); border-radius: 20px;">
+                <h2 style="font-family: 'Dancing Script', cursive; color: #dc3545; font-size: 1.5rem;">Today's Full Plan 💕</h2>
+                <div style="text-align: left; padding: 8px;">
+                    <p>🥂 <strong>12 PM</strong> — Boozy Brunch at Grammar Room</p>
+                    <p>🌿 <strong>2 PM</strong> — Picnic & Coffee at Sunder Nursery</p>
+                    <p>👗 <strong>4 PM</strong> — Dress Shopping at Khan Market</p>
+                    <p>🕯️ <strong>Evening</strong> — Cozy Candlelit Night at Home</p>
+                    <p>🍸 <strong>10 PM</strong> — Night Out at Our Fav Bar!</p>
+                </div>
+            </div>
+
+            <p style="font-size: 1.15rem;">Happy Valentine's Day, my love! 💝</p>
+            <p><em>— Your Gold Fish 🐟</em></p>
+            <button class="btn" onclick="finalCelebrate()">🎊 Let's Start the Day! 🎊</button>
+        </div>
+
+        <!-- ===== CELEBRATION ===== -->
+        <div class="stage" id="stage13">
+            <div class="emoji-big" style="animation: heartbeat 1.5s infinite;">💕</div>
+            <h1>Best Valentine's Day<br>Coming Up!</h1>
+            <p style="font-size: 1.15rem;">Let's make today unforgettable, <span class="nickname-highlight">Alishu</span>!</p>
+            <div style="font-size: 3rem; margin: 12px 0;"><span class="cat-curious">🐱</span> + 🐟 = ❤️</div>
+            <p><em>Dhruv + Alisha + the best day ever</em></p>
+            <button class="btn btn-secondary" onclick="location.reload()">Play Again? 🔄</button>
+        </div>
+    </div>
+
+<script>
+let currentStage = 0;
+let isMusicPlaying = false;
+let audioContext = null;
+let gamesWon = 0;
+
+// ========== AUDIO ==========
+function initAudio() { if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)(); }
+function playSwoosh() {
+    if (!audioContext) return;
+    try { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.frequency.setValueAtTime(800, audioContext.currentTime); o.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.15); g.gain.setValueAtTime(0.08, audioContext.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15); o.start(audioContext.currentTime); o.stop(audioContext.currentTime + 0.15); } catch(e) {}
+}
+function playClick() {
+    if (!audioContext) return;
+    try { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.frequency.setValueAtTime(600, audioContext.currentTime); o.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05); g.gain.setValueAtTime(0.08, audioContext.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05); o.start(audioContext.currentTime); o.stop(audioContext.currentTime + 0.05); } catch(e) {}
+}
+function playSuccess() {
+    if (!audioContext) return;
+    try { [523.25, 659.25, 783.99].forEach((f, i) => { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.frequency.value = f; g.gain.setValueAtTime(0.08, audioContext.currentTime + i * 0.1); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2); o.start(audioContext.currentTime + i * 0.1); o.stop(audioContext.currentTime + i * 0.1 + 0.2); }); } catch(e) {}
+}
+function playWrong() {
+    if (!audioContext) return;
+    try { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.frequency.setValueAtTime(200, audioContext.currentTime); o.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.2); g.gain.setValueAtTime(0.08, audioContext.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2); o.start(audioContext.currentTime); o.stop(audioContext.currentTime + 0.2); } catch(e) {}
+}
+function playReveal() {
+    if (!audioContext) return;
+    try { [392, 440, 523.25, 659.25, 783.99].forEach((f, i) => { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.type = 'triangle'; o.frequency.value = f; g.gain.setValueAtTime(0.07, audioContext.currentTime + i * 0.12); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.12 + 0.25); o.start(audioContext.currentTime + i * 0.12); o.stop(audioContext.currentTime + i * 0.12 + 0.25); }); } catch(e) {}
+}
+function playCelebration() {
+    if (!audioContext) return;
+    try { [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5].forEach((f, i) => { const o = audioContext.createOscillator(), g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination); o.frequency.value = f; g.gain.setValueAtTime(0.07, audioContext.currentTime + i * 0.08); g.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.08 + 0.15); o.start(audioContext.currentTime + i * 0.08); o.stop(audioContext.currentTime + i * 0.08 + 0.15); }); } catch(e) {}
+}
+
+// ========== BASICS ==========
+function toggleMusic() { initAudio(); const b = document.getElementById('music-btn'); isMusicPlaying = !isMusicPlaying; b.textContent = isMusicPlaying ? '🔊' : '🔇'; }
+function createHearts() {
+    const c = document.getElementById('hearts'), e = ['💕','💖','💗','💝','🐱','🐾','✨','🌹'];
+    for (let i = 0; i < 20; i++) { const h = document.createElement('div'); h.className = 'heart'; h.textContent = e[Math.floor(Math.random() * e.length)]; h.style.left = Math.random()*100+'vw'; h.style.animationDuration = (Math.random()*4+5)+'s'; h.style.animationDelay = Math.random()*6+'s'; h.style.fontSize = (Math.random()*12+14)+'px'; c.appendChild(h); }
+}
+createHearts();
+function nextStage() { document.getElementById('stage'+currentStage).classList.remove('active'); currentStage++; document.getElementById('stage'+currentStage).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+function nextStageWithSound() { playSwoosh(); nextStage(); }
+function startGame() { initAudio(); toggleMusic(); playSuccess(); nextStage(); }
+function selectReaction(btn) { playClick(); btn.parentElement.querySelectorAll('.btn-reaction').forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); }
+function spawnConfetti(count) {
+    const colors = ['#dc3545','#ff6b7a','#ffb6c1','#4db6ac','#26a69a','#ffd700'];
+    for (let i = 0; i < count; i++) { setTimeout(() => { const c = document.createElement('div'); c.className = 'confetti'; c.style.left = Math.random()*100+'vw'; c.style.background = colors[Math.floor(Math.random()*colors.length)]; c.style.borderRadius = Math.random()>0.5?'50%':'0'; c.style.width = (Math.random()*10+5)+'px'; c.style.height = c.style.width; document.body.appendChild(c); setTimeout(() => c.remove(), 3000); }, i * 25); }
+}
+
+// ========== GAME 1: EMOJI DECODER ==========
+let emojiHintsShown = 0;
+function showEmojiHint(num) {
+    if (num === 1) { document.getElementById('emoji-hint-text').textContent = "📖 Think: A fun game place which opened up in Khan?"; document.getElementById('emoji-hint-2').classList.remove('hidden'); emojiHintsShown = 1; }
+    if (num === 2) { document.getElementById('emoji-hint-text').textContent = "It's a BOOZY BRUNCH spot! 🥂🍳"; document.getElementById('emoji-hint-3').classList.remove('hidden'); emojiHintsShown = 2; }
+}
+function checkEmojiGuess() {
+    const guess = document.getElementById('emoji-guess').value.trim().toLowerCase();
+    const r = document.getElementById('game-result-1');
+    if (guess.includes('grammar')) {
+        gamesWon++;
+        r.textContent = "🎉 You got it! The Emoji Queen strikes! 👑";
+        r.style.color = '#4db6ac';
+    } else if (guess) {
+        r.textContent = '🐱 You guessed "' + document.getElementById('emoji-guess').value.trim() + '" — close enough? 😂';
+        r.style.color = '#ff9a9e';
+    } else {
+        r.textContent = "🐱 No guess? The curiosity was too much! 😂";
+        r.style.color = '#ff9a9e';
+    }
+    playReveal(); nextStage();
+}
+function skipToReveal(gameNum) {
+    const r = document.getElementById('game-result-' + gameNum);
+    r.textContent = "🐱 Skipped! Couldn't wait to find out, huh? 😏";
+    r.style.color = '#ff9a9e';
+    playReveal(); nextStage();
+}
+
+// ========== GAME 2: HOT & COLD ==========
+let hotColdAttempts = 0;
+const tempMessages = {
+    freezing: { text: '🥶 FREEZING!', bg: '#42a5f5', color: 'white', thought: "Not even close, Aloo! Try again! 😂" },
+    cold: { text: '❄️ Cold...', bg: '#66bb6a', color: 'white', thought: "Getting a tiny bit closer... think nature! 🌳" },
+    warm: { text: '🔥 Getting Warm!', bg: '#ffa726', color: 'white', thought: "Ooh you're close! It's nearby but more... nursery-ish! 🌿" },
+    hot: { text: '🔥🔥 HOT!', bg: '#ef5350', color: 'white', thought: "SO close! It's literally next door to this one! 🔥" },
+    correct: { text: '💥 CORRECT!', bg: '#4db6ac', color: 'white', thought: "YESSS! You found it! 🎉🌿" }
+};
+function hotColdPick(card, temp) {
+    hotColdAttempts++;
+    const info = tempMessages[temp];
+    const display = document.getElementById('temp-display');
+    display.textContent = info.text;
+    display.style.background = info.bg;
+    display.style.color = info.color;
+    document.getElementById('hotcold-thought').textContent = info.thought;
+
+    card.classList.add(temp);
+    playClick();
+
+    if (temp === 'correct') {
+        gamesWon++;
+        playSuccess();
+        card.style.pointerEvents = 'none';
+        const r = document.getElementById('game-result-2');
+        if (hotColdAttempts === 1) { r.textContent = "🔥 First try?! You're on fire! 🎯"; r.style.color = '#4db6ac'; }
+        else { r.textContent = "🐱 Got it in " + hotColdAttempts + " tries! 🎯"; r.style.color = '#4db6ac'; }
+        setTimeout(() => nextStage(), 1200);
+    } else {
+        card.style.pointerEvents = 'none';
+        card.style.opacity = '0.6';
+    }
+}
+
+// ========== GAME 3: SCRATCH CARDS ==========
+let scratchCount = 0;
+const scratchMessages = ['Ooh, what could it be? 👀', 'More clues appearing! 🐾', 'Is it clicking yet? 😏', 'Almost there! 🎉', 'The picture is forming! 👗', 'Fashion vibes incoming! ✨', 'DT is opening his wallet! 💸', 'You deserve this! 👑', 'SHOPPING TIME! 🛍️🎉'];
+function scratchCard(card, emoji) {
+    if (card.classList.contains('revealed')) return;
+    playClick();
+    card.classList.add('revealed');
+    card.textContent = emoji;
+    card.style.fontSize = '2.2rem';
+    scratchCount++;
+    document.getElementById('scratch-msg').textContent = scratchMessages[scratchCount - 1] || '';
+    document.getElementById('scratch-counter').textContent = 'Cards revealed: ' + scratchCount + '/9';
+    if (scratchCount >= 3) document.getElementById('scratch-guess-btn').classList.remove('hidden');
+    if (scratchCount >= 9) {
+        gamesWon++;
+        const r = document.getElementById('game-result-3');
+        r.textContent = "🎉We Are Going Dress Shopping!! 👗✨";
+        r.style.color = '#4db6ac';
+        playSuccess();
+        setTimeout(() => nextStage(), 1000);
+    }
+}
+function scratchReveal() {
+    // Reveal remaining cards
+    document.querySelectorAll('.scratch-card:not(.revealed)').forEach(c => {
+        const emojis = ['👗','🛍️','💃','👠','💝','✨','💸','🪞','👑'];
+        c.classList.add('revealed');
+        c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        c.style.fontSize = '2.2rem';
+    });
+    gamesWon++;
+    const r = document.getElementById('game-result-3');
+    r.textContent = "🎉 You figured it out early! Smart COW 🍪";
+    r.style.color = '#4db6ac';
+    playReveal(); nextStage();
+}
+
+// ========== GAME 4: BUILD YOUR EVENING ==========
+let menuCorrect = 0;
+let menuTotal = 0;
+const menuAnswered = {};
+function menuPick(item, category, isCorrect) {
+    if (menuAnswered[category + item.textContent]) return;
+    menuAnswered[category + item.textContent] = true;
+
+    if (isCorrect) {
+        item.classList.add('correct');
+        menuCorrect++;
+        playSuccess();
+    } else {
+        item.classList.add('wrong');
+        playWrong();
+    }
+    item.style.pointerEvents = 'none';
+    document.getElementById('menu-score').textContent = 'Correct picks: ' + menuCorrect + ' 🐾';
+}
+function menuReveal() {
+    if (menuCorrect >= 5) gamesWon++;
+    const r = document.getElementById('game-result-4');
+    if (menuCorrect >= 6) { r.textContent = "🎉 " + menuCorrect + " correct! You basically planned this yourself! 😂"; r.style.color = '#4db6ac'; }
+    else if (menuCorrect >= 4) { r.textContent = "🐱 " + menuCorrect + " right! You know DT pretty well! 💕"; r.style.color = '#4db6ac'; }
+    else { r.textContent = "🐱 " + menuCorrect + " correct — DT is full of surprises! 😏"; r.style.color = '#ff9a9e'; }
+    playReveal(); nextStage();
+}
+
+// ========== GAME 5: SPIN THE WHEEL ==========
+let wheelAngle = 0;
+let spinning = false;
+const wheelSegments = [
+    { text: '🍸 Bar Night!', color: '#dc3545' },
+    { text: '🎪 FIFA', color: '#ff6b7a' },
+    { text: '🎤 BW Night', color: '#4db6ac' },
+    { text: '🍸 Party Night at Best Club', color: '#ffd700' },
+    { text: '🛋️ Sleep lol', color: '#ff9a9e' },
+    { text: '🍸 Sidecar', color: '#26a69a' },
+];
+
+function drawWheel(rotation) {
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    const cx = 130, cy = 130, r = 125;
+    const sliceAngle = (2 * Math.PI) / wheelSegments.length;
+
+    ctx.clearRect(0, 0, 260, 260);
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotation * Math.PI / 180);
+    ctx.translate(-cx, -cy);
+
+    wheelSegments.forEach((seg, i) => {
+        const start = i * sliceAngle;
+        const end = start + sliceAngle;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r, start, end);
+        ctx.closePath();
+        ctx.fillStyle = seg.color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Text
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(start + sliceAngle / 2);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 13px Poppins';
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 3;
+        ctx.fillText(seg.text, r * 0.6, 5);
+        ctx.shadowBlur = 0;
+        ctx.restore();
+    });
+
+    ctx.restore();
+}
+
+function spinWheel() {
+    if (spinning) return;
+    spinning = true;
+    document.getElementById('spin-btn').disabled = true;
+    playClick();
+
+    // Always land on "Our Fav Bar!" (index 5)
+    // Each slice is 60 degrees. Index 5 starts at 300 degrees.
+    // Pointer is at top (270 degrees in canvas coordinate).
+    // We need the slice at index 5 to be under the pointer.
+    // Target: center of slice 5 = 300 + 30 = 330 degrees. Pointer at 270 (top).
+    // Rotation needed so that 330 - rotation ≡ 270 (mod 360) => rotation = 60
+    // Plus extra full spins
+    const targetRotation = 360 * 6 + 60 + Math.random() * 20 - 10;
+    const startTime = Date.now();
+    const duration = 4000;
+
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function animate() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOut(progress);
+        wheelAngle = easedProgress * targetRotation;
+        drawWheel(wheelAngle);
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            spinning = false;
+            gamesWon++;
+            playSuccess();
+            document.getElementById('spin-hint').textContent = "🎉 It landed on Our Fav Bar! Let's gooo! 🍸🕺";
+            document.getElementById('spin-hint').style.color = '#dc3545';
+            document.getElementById('spin-hint').style.fontWeight = '600';
+            const r = document.getElementById('game-result-5');
+            r.textContent = "🎡 The wheel has spoken! Night out it is! 🍸";
+            r.style.color = '#4db6ac';
+            spawnConfetti(30);
+            setTimeout(() => nextStage(), 1800);
+        }
+    }
+    animate();
+}
+drawWheel(0);
+
+// ========== FINAL ==========
+function showFinalScore() {
+    playCelebration();
+    nextStage();
+    document.getElementById('total-score').textContent = gamesWon;
+    const msg = document.getElementById('score-message');
+    if (gamesWon === 5) msg.textContent = "PERFECT SCORE! 🐟💕 You know your Gold Fish better than he knows himself!";
+    else if (gamesWon >= 4) msg.textContent = "Amazing! You and DT are truly in sync! 🧠💝";
+    else if (gamesWon >= 3) msg.textContent = "Not bad, Alishu! DT still has some mystery! 😏✨";
+    else if (gamesWon >= 2) msg.textContent = "DT is a man of surprises! 🐱🎉";
+    else msg.textContent = "Haha! You didn't see ANY of this coming! Full surprise mode! 🎊";
+    spawnConfetti(60);
+}
+function finalCelebrate() { playCelebration(); spawnConfetti(100); nextStage(); }
+</script>
+</body>
+</html>

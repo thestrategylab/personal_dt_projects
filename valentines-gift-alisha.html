@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 A Special Gift for Alisha 💝</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe4ec 30%, #e0f7fa 70%, #b2ebf2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(220, 53, 69, 0.15), 0 10px 30px rgba(77, 182, 172, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 105, 135, 0.08), transparent, rgba(77, 182, 172, 0.05), transparent);
+            animation: shimmer 4s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .stage {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .stage.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #dc3545;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(220, 53, 69, 0.2);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .emoji-big {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.35);
+            margin: 10px 5px;
+            position: relative;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(220, 53, 69, 0.45);
+            background: linear-gradient(135deg, #e04555, #dc3545);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4db6ac, #26a69a);
+            box-shadow: 0 5px 25px rgba(77, 182, 172, 0.35);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 30px rgba(77, 182, 172, 0.45);
+            background: linear-gradient(135deg, #5ec4ba, #4db6ac);
+        }
+
+        .btn-option {
+            display: block;
+            width: 100%;
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #ffb6c1;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-option:hover {
+            background: linear-gradient(135deg, #dc3545, #ff6b7a);
+            color: white;
+            border-color: #dc3545;
+            transform: scale(1.02);
+        }
+
+        /* Runaway button styles */
+        .btn-runaway {
+            position: relative;
+            transition: all 0.15s ease;
+        }
+
+        .btn-runaway.running {
+            position: absolute;
+        }
+
+        .runaway-container {
+            position: relative;
+            min-height: 280px;
+            margin: 20px 0;
+        }
+
+        .runaway-message {
+            color: #dc3545;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .runaway-message.visible {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #ffe4ec, #e0f7fa);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #dc3545, #ff6b7a, #4db6ac);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .meme-container {
+            background: linear-gradient(135deg, #fff9fa, #fff5f7);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px dashed #ffb6c1;
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.2);
+        }
+
+        .meme-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            font-style: italic;
+        }
+
+        /* Bollywood meme styling */
+        .bollywood-meme {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .bollywood-meme .movie-name {
+            font-size: 0.85rem;
+            color: #c0392b;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bollywood-meme .dialogue {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.5;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .bollywood-meme .character {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .nickname-highlight {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        .nickname-turquoise {
+            color: #26a69a;
+            font-weight: 700;
+        }
+
+        .reveal-box {
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec, #e8f5f4);
+            border: 3px solid #ffb6c1;
+            border-radius: 25px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.25);
+        }
+
+        .date-detail {
+            background: white;
+            padding: 18px;
+            border-radius: 15px;
+            margin: 12px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #4db6ac;
+            transition: transform 0.3s ease;
+            text-align: left;
+        }
+
+        .date-detail:hover {
+            transform: translateX(5px);
+        }
+
+        .date-detail-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall 3s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .wrong-answer {
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .correct-answer {
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .love-letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            line-height: 1.9;
+            color: #dc3545;
+            background: linear-gradient(135deg, #fff9fa, #fff5f7, #fef0f3);
+            padding: 30px 25px;
+            border-radius: 20px;
+            border: 2px solid #ffcdd2;
+            box-shadow: inset 0 0 30px rgba(255, 182, 193, 0.2);
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .love-letter::before {
+            content: '❤';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            background: white;
+            padding: 0 10px;
+        }
+
+        .love-letter p {
+            color: #dc3545;
+            margin-bottom: 12px;
+        }
+
+        .joey-emoji {
+            font-size: 3.5rem;
+            animation: wiggle 1s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Romantic decorative elements */
+        .rose-decoration {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .rose-1 { top: 10px; left: 10px; }
+        .rose-2 { top: 10px; right: 10px; }
+        .rose-3 { bottom: 10px; left: 10px; }
+        .rose-4 { bottom: 10px; right: 10px; }
+
+        /* Fun question special styling */
+        .fun-question-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .catch-counter {
+            background: linear-gradient(135deg, #4db6ac, #26a69a);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Memory Lane Photo Gallery Styles */
+        .memory-lane-container {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .photo-slideshow {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(220, 53, 69, 0.2);
+            border: 4px solid #ffb6c1;
+        }
+
+        .photo-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec);
+        }
+
+        .photo-slide.active {
+            opacity: 1;
+        }
+
+        .photo-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            width: auto;
+            height: auto;
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 40px 15px 15px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .photo-counter {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .photo-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-nav-btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .photo-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .photo-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffb6c1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo-dot.active {
+            background: #dc3545;
+            transform: scale(1.3);
+        }
+
+        .memory-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+
+        /* Music control button */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: pulse-music 1s infinite;
+        }
+
+        @keyframes pulse-music {
+            0%, 100% { box-shadow: 0 5px 25px rgba(220, 53, 69, 0.4); }
+            50% { box-shadow: 0 5px 35px rgba(220, 53, 69, 0.7); }
+        }
+
+        /* Sound indicator */
+        .sound-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sound-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+
+    <!-- Music Control Button -->
+    <button class="music-control" id="music-btn" onclick="toggleMusic()">🔇</button>
+
+    <!-- Sound Indicator -->
+    <div class="sound-indicator" id="sound-indicator">🎵 Sound On!</div>
+
+    <div class="container">
+        <span class="rose-decoration rose-1">🌹</span>
+        <span class="rose-decoration rose-2">🌹</span>
+        <span class="rose-decoration rose-3">🌹</span>
+        <span class="rose-decoration rose-4">🌹</span>
+
+        <!-- Stage 0: Welcome -->
+        <div class="stage active" id="stage0">
+            <div class="emoji-big" style="animation: heartbeat 1.5s infinite;">💝</div>
+            <h1>Hey Alishu!</h1>
+            <p>Your <span class="nickname-highlight">Gold Fish</span> has prepared something special for you...</p>
+            <p>Are you ready for a little adventure? 🌹</p>
+            <p style="font-size: 0.9rem; color: #999;">🔊 Turn on sound for the best experience!</p>
+            <button class="btn" onclick="startJourney()">Yes, I'm Ready! 💕</button>
+        </div>
+
+        <!-- Stage 1: Intro -->
+        <div class="stage" id="stage1">
+            <div class="progress-bar"><div class="progress" style="width: 6%"></div></div>
+            <h2>Before we begin...</h2>
+            <p>This journey has <strong>quizzes</strong>, <strong>surprises</strong>, and something special at the end! 🎁</p>
+            <p>Let's see how well you remember <em>us</em>... <span class="nickname-highlight">Aloo</span> 🥔</p>
+            <div class="emoji-big">🤔</div>
+            <button class="btn" onclick="nextStageWithSound()">Bring It On! 💪</button>
+        </div>
+
+        <!-- Stage 2: Quiz 1 - First Date -->
+        <div class="stage" id="stage2">
+            <div class="progress-bar"><div class="progress" style="width: 12%"></div></div>
+            <h2>Quiz Time! 📝</h2>
+            <p><strong>Question 1:</strong> Where was our first date?</p>
+            <button class="btn-option" onclick="checkAnswer(this, false)"> Bergamo </button>
+            <button class="btn-option" onclick="checkAnswer(this, true)"> Public Affair </button>
+            <button class="btn-option" onclick="checkAnswer(this, false)"> Diablooo </button>
+            <button class="btn-option" onclick="checkAnswer(this, false)">TK's</button>
+        </div>
+
+        <!-- Stage 3: Memory Flashback -->
+        <div class="stage" id="stage3">
+            <div class="progress-bar"><div class="progress" style="width: 18%"></div></div>
+            <h2>Remember This? 💕</h2>
+            <div class="meme-container">
+                <div class="emoji-big">🧎‍♂️💍</div>
+                <p class="meme-text">"That moment when your Gold Fish went down on one knee at Public Affair..."</p>
+            </div>
+            <p>And you got Creeped Out? Yet Here we are almost <strong>5 years</strong> later, still the best decision you made 😏</p>
+            <button class="btn" onclick="nextStageWithSound()">Aww, Continue! 🥰</button>
+        </div>
+
+        <!-- Stage 4: Bollywood Meme 1 - Welcome -->
+        <div class="stage" id="stage4">
+            <div class="progress-bar"><div class="progress" style="width: 24%"></div></div>
+            <h2>Bollywood Break! 🎬</h2>
+            <div class="bollywood-meme">
+                <div class="movie-name">Wanted</div>
+                <div class="dialogue">"Ek baar jo maine commitment kar di, toh phir main apne aap ki bhi nahi sunta!"</div>
+                <div class="character">- DT to Alisha, probably 😎</div>
+            </div>
+            <p>That's literally your Gold Fish when it comes to loving you! 💕</p>
+            <button class="btn" onclick="nextStageWithSound()">😂 So True!</button>
+        </div>
+
+        <!-- Stage 5: Quiz 2 - Song -->
+        <div class="stage" id="stage5">
+            <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
+            <h2>Music Round! 🎵</h2>
+            <p><strong>Question 2:</strong> What's OUR song?</p>
+            <button class="btn-option" onclick="checkAnswer(this, false)"> Maharani </button>
+            <button class="btn-option" onclick="checkAnswer(this, false)"> Gafooor </button>
+            <button class="btn-option" onclick="checkAnswer(this, true)"> Daaru Badnaam </button>
+            <button class="btn-option" onclick="checkAnswer(this, false)"> With You </button>
+        </div>
+
+        <!-- Stage 6: Meme Break - Butter Chicken -->
+        <div class="stage" id="stage6">
+            <div class="progress-bar"><div class="progress" style="width: 36%"></div></div>
+            <h2>Meme Break! 😂</h2>
+            <div class="meme-container">
+                <p class="meme-text">Alisha: "I'm vegetarian"</p>
+                <p class="meme-text" style="margin-top: 10px;">Also Alisha: "Ouu! Is it Butter Chicken? <br>I'll just have the curry curry</br>" 🍗</p>
+                <div class="emoji-big">😏</div>
+            </div>
+            <p><em>Your secret is safe with me, hehehehe or is it <span class="nickname-turquoise">Ali Bhaiii ?</span>...</em></p>
+            <button class="btn" onclick="nextStageWithSound()">😂 Okay Next!</button>
+        </div>
+
+        <!-- Stage 7: Bollywood Meme 2 - Dhamaal -->
+        <div class="stage" id="stage7">
+            <div class="progress-bar"><div class="progress" style="width: 42%"></div></div>
+            <h2>Dhamaal Time! 🎪</h2>
+            <div class="bollywood-meme">
+                <div class="movie-name">Phir Hera Pheri</div>
+                <div class="dialogue">"Yeh Baburao ka style hai!"</div>
+                <div class="character">- DT showing off to impress Alisha 😎</div>
+            </div>
+            <p>When your Gold Fish tries to act cool... 🐟✨</p>
+            <button class="btn" onclick="nextStageWithSound()">Haha! 😂</button>
+        </div>
+
+        <!-- Stage 8: Quiz 3 - Who Can You Not Live Without? -->
+        <div class="stage" id="stage8">
+            <div class="progress-bar"><div class="progress" style="width: 48%"></div></div>
+            <h2>Snack Attack! 🍿</h2>
+            <p><strong>Question 3:</strong> Who can Alisha NOT live without?</p>
+            <button class="btn-option" onclick="checkAnswer(this, false)">V Dawg & Soumith</button>
+            <button class="btn-option" onclick="checkAnswer(this, true)">DT BT</button>
+            <button class="btn-option" onclick="checkAnswer(this, true)">Jo Jo Rani</button>
+            <button class="btn-option" onclick="checkAnswer(this, false)">ROCKY RANI ki Prem Kahaani</button>
+        </div>
+
+        <!-- Stage 9: Bollywood Meme 3 - Bhagam Bhag -->
+        <div class="stage" id="stage9">
+            <div class="progress-bar"><div class="progress" style="width: 52%"></div></div>
+            <h2>Bhagam Bhag! 🏃</h2>
+            <div class="bollywood-meme">
+                <div class="movie-name">🎬 Bhagam Bhag (2006)</div>
+                <div class="dialogue">"Tension lene ka nahi, sirf dene ka!"</div>
+                <div class="character">- DT's life motto 😅</div>
+            </div>
+            <p>When someone asks what it's like dating a Gold Fish! 🐟😂</p>
+            <button class="btn" onclick="nextStageWithSound()">Too Accurate! 😂</button>
+        </div>
+
+        <!-- Stage 10: Fun Runaway Question - Do you love DT? -->
+        <div class="stage" id="stage10">
+            <div class="progress-bar"><div class="progress" style="width: 56%"></div></div>
+            <h2>Quick Question! 💘</h2>
+            <p class="fun-question-text">Do you love your Gold Fish (DT)?</p>
+            <div class="runaway-container" id="runaway-container-1">
+                <div class="catch-counter" id="catch-counter-1">Attempts: 0</div>
+                <button class="btn btn-runaway" id="yes-btn-1" onclick="handleYesClick(1)">Yes, Forever! 💕</button>
+                <button class="btn btn-secondary btn-runaway" id="no-btn-1" onmouseover="runAway(1)" onclick="runAway(1)">Umm... No 🙈</button>
+                <p class="runaway-message" id="runaway-msg-1">Haha! Nice try! That button doesn't want to be clicked! 😜</p>
+            </div>
+        </div>
+
+        <!-- Stage 11: Memory Lane - Photo Gallery -->
+        <div class="stage" id="stage11">
+            <div class="progress-bar"><div class="progress" style="width: 62%"></div></div>
+            <h2 class="memory-title">✨ Down Memory Lane ✨</h2>
+            <p>Look at us being adorable! 💕</p>
+
+            <div class="memory-lane-container">
+                <div class="photo-counter" id="photo-counter">1 / 9</div>
+
+                <div class="photo-slideshow" id="photo-slideshow">
+                    <div class="photo-slide active">
+                        <img src="Us_Looking_Cute&Hot_Image.jpeg" alt="Memory 1">
+                        <div class="photo-caption">Looking cute & hot together 🔥</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Cute_Image.jpeg" alt="Memory 2">
+                        <div class="photo-caption">Twinning is winning! 🧸</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Us in our element image.jpeg" alt="Memory 3">
+                        <div class="photo-caption">Us in our element 💕</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="US Winning Image.jpeg" alt="Memory 4">
+                        <div class="photo-caption">Making hearts everywhere 💖</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Funny_Banter_Drinking_Wine_Image.jpeg" alt="Memory 5">
+                        <div class="photo-caption">Cheers to us! 🥂</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Our cutie old image.jpeg" alt="Memory 6">
+                        <div class="photo-caption">Our cutie moments 🥰</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Us caught in the act image.jpeg" alt="Memory 7">
+                        <div class="photo-caption">Caught being cute! 📸</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Us being naughty image.JPG" alt="Memory 8">
+                        <div class="photo-caption">Us being us 😜</div>
+                    </div>
+                    <div class="photo-slide">
+                        <img src="Cute boss funny image.JPG" alt="Memory 9">
+                        <div class="photo-caption">My favorite person ❤️</div>
+                    </div>
+                </div>
+
+                <div class="photo-nav">
+                    <button class="photo-nav-btn" onclick="prevPhotoWithSound()">❮</button>
+                    <button class="photo-nav-btn" onclick="nextPhotoWithSound()">❯</button>
+                </div>
+
+                <div class="photo-dots" id="photo-dots">
+                    <span class="photo-dot active" onclick="goToPhoto(0)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(1)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(2)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(3)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(4)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(5)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(6)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(7)"></span>
+                    <span class="photo-dot" onclick="goToPhoto(8)"></span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()" style="margin-top: 20px;">These are so cute! 🥺</button>
+        </div>
+
+        <!-- Stage 12: Bollywood Meme 4 - Hera Pheri -->
+        <div class="stage" id="stage12">
+            <div class="progress-bar"><div class="progress" style="width: 68%"></div></div>
+            <h2>Hera Pheri Moment! 💰</h2>
+            <div class="bollywood-meme">
+                <div class="movie-name">🎬 Phir Hera Pheri (2006)</div>
+                <div class="dialogue">"25 din mein paisa double!"</div>
+                <div class="character">- DT's love for Alisha doubles every day! 📈💕</div>
+            </div>
+            <p>Except instead of money, it's love that keeps doubling! 💝</p>
+            <button class="btn" onclick="nextStageWithSound()">Awww! 🥰</button>
+        </div>
+
+        <!-- Stage 13: Fun Quiz - Personality -->
+        <div class="stage" id="stage13">
+            <div class="progress-bar"><div class="progress" style="width: 72%"></div></div>
+            <h2>Fun Question! 🎲</h2>
+            <p>If our relationship was a Bollywood movie, which genre would it be?</p>
+            <button class="btn-option" onclick="showFunResult('romance')">💕 Full Romance (Dilwale style)</button>
+            <button class="btn-option" onclick="showFunResult('comedy')">😂 Comedy (Golmaal vibes)</button>
+            <button class="btn-option" onclick="showFunResult('action')">💥 Action-packed (Dabangg energy)</button>
+            <button class="btn-option" onclick="showFunResult('all')">🎬 All of the above!</button>
+            <p id="fun-result" class="hidden"></p>
+        </div>
+
+        <!-- Stage 14: Joey -->
+        <div class="stage" id="stage14">
+            <div class="progress-bar"><div class="progress" style="width: 78%"></div></div>
+            <h2>Special Guest! 🐕</h2>
+            <div class="joey-emoji">🐶</div>
+            <p><strong>Joey</strong> wants to say something...</p>
+            <div class="meme-container">
+                <p class="meme-text">"Woof! Mom, Dad has been planning this for days! He even forgot to give me treats because he was so focused... typical Gold Fish behavior! 🐟"</p>
+            </div>
+            <button class="btn btn-secondary" onclick="nextStageWithSound()">Good Boy Joey! 🦴</button>
+        </div>
+
+        <!-- Stage 15: Another Runaway Question - Will you be my Valentine? -->
+        <div class="stage" id="stage15">
+            <div class="progress-bar"><div class="progress" style="width: 84%"></div></div>
+            <h2>The Big Question! 💝</h2>
+            <p class="fun-question-text">Will you be my Valentine?</p>
+            <div class="runaway-container" id="runaway-container-2">
+                <div class="catch-counter" id="catch-counter-2">Attempts: 0</div>
+                <button class="btn btn-runaway" id="yes-btn-2" onclick="handleYesClick(2)">YES! 💖</button>
+                <button class="btn btn-secondary btn-runaway" id="no-btn-2" onmouseover="runAway(2)" onclick="runAway(2)">Let me think... 🤔</button>
+                <p class="runaway-message" id="runaway-msg-2">That button is shy! It keeps running away! 😂</p>
+            </div>
+        </div>
+
+        <!-- Stage 16: Meme - DT's Bad Habits -->
+        <div class="stage" id="stage16">
+            <div class="progress-bar"><div class="progress" style="width: 88%"></div></div>
+            <h2>A Promise... 🤞</h2>
+            <div class="meme-container">
+                <p class="meme-text">Things DT will TRY to control:</p>
+                <p style="font-size: 2rem; margin: 15px 0;">🥤 Coke addiction</p>
+                <p style="font-size: 2rem; margin: 15px 0;">🍬 Candy obsession</p>
+                <p class="meme-text"><em>(No promises though... 😅)</em></p>
+            </div>
+            <p>But I'll always try for you, <span class="nickname-highlight">Alish Peesh</span>! 💕</p>
+            <button class="btn" onclick="nextStageWithSound()">Haha, Continue! 😂</button>
+        </div>
+
+        <!-- Stage 17: Love Note -->
+        <div class="stage" id="stage17">
+            <div class="progress-bar"><div class="progress" style="width: 94%"></div></div>
+            <h2>From DT BT's Heart... 💝</h2>
+            <div class="love-letter">
+                <p>Dear Alishu,</p>
+                <p>Almost 5 years of us... and every moment has been worth it.</p>
+                <p>From Public Affair to forever, you've been my favorite adventure.</p>
+                <p>Thank you for loving this Gold Fish 🐟</p>
+                <p style="margin-top: 15px; font-size: 1.5rem;">- Your King DT 👑</p>
+            </div>
+            <button class="btn" onclick="nextStageWithSound()">🥺 I'm Not Crying...</button>
+        </div>
+
+        <!-- Stage 18: Final Reveal -->
+        <div class="stage" id="stage18">
+            <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            <h1>🎉 The Big Reveal! 🎉</h1>
+            <p>You made it, <span class="nickname-turquoise">Aloo</span>! Here's what's waiting for you...</p>
+
+            <div class="reveal-box">
+                <h2 style="color: #dc3545;">Valentine's Date Plan 💕</h2>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">🎮</div>
+                    <strong>Games at Home</strong>
+                    <p style="margin-bottom: 0;">Just you, me, and some fun competition!</p>
+                </div>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">🍽️</div>
+                    <strong>Restaurant</strong>
+                    <p style="margin-bottom: 0;">Delicious food (maybe some momos? 🥟)</p>
+                </div>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">🕺💃</div>
+                    <strong>Clubbing</strong>
+                    <p style="margin-bottom: 0;">Time to dance to Daaru Badnaam! 🎵</p>
+                </div>
+
+                <div class="date-detail">
+                    <div class="date-detail-icon">✨</div>
+                    <strong>Masti</strong>
+                    <p style="margin-bottom: 0;">And whatever else we feel like!</p>
+                </div>
+            </div>
+
+            <p style="font-size: 1.3rem; margin-top: 20px;">Happy Valentine's Day, my love! 💝</p>
+            <p><em>- Dhruvie / DT / King DT / Your Gold Fish 🐟</em></p>
+
+            <button class="btn" onclick="celebrate()">🎊 Celebrate! 🎊</button>
+        </div>
+
+        <!-- Stage 19: Final -->
+        <div class="stage" id="stage19">
+            <div class="emoji-big" style="animation: heartbeat 1.5s infinite;">💕</div>
+            <h1>I Love You, Alisha!</h1>
+            <p>Here's to 5 years and forever more...</p>
+            <div style="font-size: 3rem; margin: 20px 0;">👫🐶</div>
+            <p><em>Dhruv + Alisha + Joey = ❤️</em></p>
+            <button class="btn btn-secondary" onclick="location.reload()">Start Over? 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 0;
+        let score = 0;
+        const totalStages = 19;
+        let runawayAttempts = { 1: 0, 2: 0 };
+        let currentPhoto = 0;
+        const totalPhotos = 9;
+        let isMusicPlaying = false;
+
+        // Audio Context for sound effects
+        let audioContext = null;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // Play swoosh/transition sound
+        function playSwoosh() {
+            if (!audioContext) return;
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.15);
+
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.15);
+            } catch(e) {}
+        }
+
+        // Play click sound
+        function playClick() {
+            if (!audioContext) return;
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
+
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.05);
+            } catch(e) {}
+        }
+
+        // Play success sound
+        function playSuccess() {
+            if (!audioContext) return;
+            try {
+                const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+                notes.forEach((freq, i) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.value = freq;
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime + i * 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2);
+
+                    oscillator.start(audioContext.currentTime + i * 0.1);
+                    oscillator.stop(audioContext.currentTime + i * 0.1 + 0.2);
+                });
+            } catch(e) {}
+        }
+
+        // Play wrong sound
+        function playWrong() {
+            if (!audioContext) return;
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.2);
+
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch(e) {}
+        }
+
+        // Play celebration sound
+        function playCelebration() {
+            if (!audioContext) return;
+            try {
+                const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5];
+                notes.forEach((freq, i) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.value = freq;
+                    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime + i * 0.08);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.08 + 0.15);
+
+                    oscillator.start(audioContext.currentTime + i * 0.08);
+                    oscillator.stop(audioContext.currentTime + i * 0.08 + 0.15);
+                });
+            } catch(e) {}
+        }
+
+        // Play photo transition sound
+        function playPhotoSwipe() {
+            if (!audioContext) return;
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+
+                gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        // Toggle background music
+        function toggleMusic() {
+            initAudio();
+            const btn = document.getElementById('music-btn');
+            const indicator = document.getElementById('sound-indicator');
+
+            isMusicPlaying = !isMusicPlaying;
+            btn.textContent = isMusicPlaying ? '🔊' : '🔇';
+            btn.classList.toggle('playing', isMusicPlaying);
+
+            indicator.textContent = isMusicPlaying ? '🎵 Sound On!' : '🔇 Sound Off';
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Start journey with sound
+        function startJourney() {
+            initAudio();
+            toggleMusic();
+            playSuccess();
+            nextStage();
+        }
+
+        const funnyMessages = {
+            1: [
+                "Haha! Nice try! 😜",
+                "That button is scared of you! 🏃",
+                "It's running away! 😂",
+                "You can't click what you can't catch! 🙈",
+                "The button said NO to being clicked! 😏",
+                "Keep trying... or just click Yes! 💕",
+                "It's faster than you thought! 🚀",
+                "Almost got it! ...NOT! 😂"
+            ],
+            2: [
+                "That button is shy! 😂",
+                "It really doesn't want to be pressed! 🙈",
+                "Come on, just say YES! 💖",
+                "The button is playing hard to get! 😜",
+                "You know you want to click Yes! 💕",
+                "That button has commitment issues! 😏",
+                "It's running to find a better answer! 🏃",
+                "Stop chasing and click Yes already! 💝"
+            ]
+        };
+
+        // Photo gallery functions
+        function updatePhotoDisplay() {
+            const slides = document.querySelectorAll('.photo-slide');
+            const dots = document.querySelectorAll('.photo-dot');
+            const counter = document.getElementById('photo-counter');
+
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentPhoto) {
+                    slide.classList.add('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentPhoto) {
+                    dot.classList.add('active');
+                }
+            });
+
+            counter.textContent = `${currentPhoto + 1} / ${totalPhotos}`;
+        }
+
+        function nextPhoto() {
+            currentPhoto = (currentPhoto + 1) % totalPhotos;
+            updatePhotoDisplay();
+        }
+
+        function nextPhotoWithSound() {
+            playPhotoSwipe();
+            nextPhoto();
+        }
+
+        function prevPhoto() {
+            currentPhoto = (currentPhoto - 1 + totalPhotos) % totalPhotos;
+            updatePhotoDisplay();
+        }
+
+        function prevPhotoWithSound() {
+            playPhotoSwipe();
+            prevPhoto();
+        }
+
+        function goToPhoto(index) {
+            playClick();
+            currentPhoto = index;
+            updatePhotoDisplay();
+        }
+
+        // Create floating hearts with romantic colors
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartEmojis = ['💕', '💖', '💗', '💝', '❤️', '💘', '🌹', '✨'];
+
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        createHearts();
+
+        function nextStage() {
+            document.getElementById('stage' + currentStage).classList.remove('active');
+            currentStage++;
+            document.getElementById('stage' + currentStage).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function nextStageWithSound() {
+            playSwoosh();
+            nextStage();
+        }
+
+        function checkAnswer(button, isCorrect) {
+            const allButtons = button.parentElement.querySelectorAll('.btn-option');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                playSuccess();
+                button.style.background = 'linear-gradient(135deg, #4db6ac, #26a69a)';
+                button.style.color = 'white';
+                button.style.borderColor = '#4db6ac';
+                button.classList.add('correct-answer');
+                score++;
+
+                setTimeout(() => {
+                    nextStage();
+                }, 1000);
+            } else {
+                playWrong();
+                button.style.background = '#ff6b7a';
+                button.style.color = 'white';
+                button.style.borderColor = '#ff6b7a';
+                button.classList.add('wrong-answer');
+
+                // Highlight correct answer
+                allButtons.forEach(btn => {
+                    if (btn.onclick.toString().includes('true')) {
+                        btn.style.background = 'linear-gradient(135deg, #4db6ac, #26a69a)';
+                        btn.style.color = 'white';
+                        btn.style.borderColor = '#4db6ac';
+                    }
+                });
+
+                setTimeout(() => {
+                    nextStage();
+                }, 1500);
+            }
+        }
+
+        function runAway(questionNum) {
+            playClick();
+            const noBtn = document.getElementById('no-btn-' + questionNum);
+            const container = document.getElementById('runaway-container-' + questionNum);
+            const msg = document.getElementById('runaway-msg-' + questionNum);
+            const counter = document.getElementById('catch-counter-' + questionNum);
+
+            runawayAttempts[questionNum]++;
+            counter.textContent = 'Attempts: ' + runawayAttempts[questionNum];
+
+            // Show random funny message
+            const messages = funnyMessages[questionNum];
+            msg.textContent = messages[Math.floor(Math.random() * messages.length)];
+            msg.classList.add('visible');
+
+            // Calculate random position within container
+            const maxX = container.offsetWidth - noBtn.offsetWidth - 20;
+            const maxY = container.offsetHeight - noBtn.offsetHeight - 60;
+
+            const randomX = Math.max(10, Math.random() * maxX);
+            const randomY = Math.max(50, Math.random() * maxY);
+
+            noBtn.classList.add('running');
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+
+            // Make the Yes button more prominent after a few attempts
+            if (runawayAttempts[questionNum] >= 3) {
+                const yesBtn = document.getElementById('yes-btn-' + questionNum);
+                yesBtn.style.transform = 'scale(1.1)';
+                yesBtn.style.boxShadow = '0 8px 35px rgba(220, 53, 69, 0.5)';
+            }
+
+            // After many attempts, make the No button smaller
+            if (runawayAttempts[questionNum] >= 5) {
+                noBtn.style.transform = 'scale(0.8)';
+                noBtn.style.opacity = '0.7';
+            }
+
+            if (runawayAttempts[questionNum] >= 8) {
+                noBtn.style.transform = 'scale(0.6)';
+                noBtn.style.opacity = '0.5';
+            }
+        }
+
+        function handleYesClick(questionNum) {
+            playSuccess();
+            const container = document.getElementById('runaway-container-' + questionNum);
+            const msg = document.getElementById('runaway-msg-' + questionNum);
+
+            // Show success message
+            if (questionNum === 1) {
+                msg.textContent = "I knew it! You love me! 🥰💕";
+            } else {
+                msg.textContent = "YAY! Best Valentine Ever! 💖🎉";
+            }
+            msg.style.color = '#4db6ac';
+            msg.classList.add('visible');
+
+            // Create mini celebration
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    createMiniHeart(container);
+                }, i * 50);
+            }
+
+            setTimeout(() => {
+                nextStage();
+            }, 1500);
+        }
+
+        function createMiniHeart(container) {
+            const heart = document.createElement('span');
+            heart.textContent = ['💕', '💖', '💗', '❤️'][Math.floor(Math.random() * 4)];
+            heart.style.position = 'absolute';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.fontSize = '1.5rem';
+            heart.style.pointerEvents = 'none';
+            heart.style.animation = 'float 1s ease-out forwards';
+            heart.style.opacity = '0';
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.opacity = '1';
+            }, 10);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+
+        function showFunResult(choice) {
+            playClick();
+            const results = {
+                'romance': "Aww! You're a true romantic at heart! 💕 Perfect for King DT!",
+                'comedy': "Haha! Life with DT is definitely a comedy! 😂 Never a dull moment!",
+                'action': "Action-packed like Salman bhai! 💪 Fitting for Ali Bhai!",
+                'all': "YES! That's us - Romance + Comedy + Action + EVERYTHING! 🎬❤️"
+            };
+
+            const allButtons = document.querySelectorAll('#stage13 .btn-option');
+            allButtons.forEach(btn => btn.disabled = true);
+
+            const resultP = document.getElementById('fun-result');
+            resultP.textContent = results[choice];
+            resultP.classList.remove('hidden');
+            resultP.style.color = '#dc3545';
+            resultP.style.fontWeight = '600';
+            resultP.style.marginTop = '20px';
+
+            setTimeout(() => {
+                playSwoosh();
+                nextStage();
+            }, 2000);
+        }
+
+        function celebrate() {
+            playCelebration();
+            // Create confetti with romantic colors
+            const colors = ['#dc3545', '#ff6b7a', '#ffb6c1', '#4db6ac', '#26a69a', '#fff', '#ffd700'];
+
+            for (let i = 0; i < 120; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.width = (Math.random() * 12 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 12 + 5) + 'px';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 25);
+            }
+
+            nextStage();
+        }
+    </script>
+</body>
+</html>

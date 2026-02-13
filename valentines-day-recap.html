@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 Our Valentine's Day Recap! 💝</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0d0d2b 0%, #1a1a3e 40%, #2d1b3d 70%, #1a0a2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Starry background */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 30px;
+            padding: 35px 28px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 80px rgba(220, 53, 69, 0.2), 0 0 40px rgba(77, 182, 172, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            z-index: 1;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 105, 135, 0.05), transparent, rgba(77, 182, 172, 0.03), transparent);
+            animation: shimmer 5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .paw-decoration { position: absolute; font-size: 1.1rem; opacity: 0.15; }
+        .paw-1 { top: 8px; left: 10px; }
+        .paw-2 { top: 8px; right: 10px; }
+        .paw-3 { bottom: 8px; left: 10px; }
+        .paw-4 { bottom: 8px; right: 10px; }
+
+        .stage { display: none; animation: fadeIn 0.5s ease; }
+        .stage.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.4rem;
+            color: #dc3545;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(220, 53, 69, 0.15);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 1.02rem;
+        }
+
+        .emoji-big {
+            font-size: 3.5rem;
+            margin: 12px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+        }
+
+        .nickname-highlight { color: #dc3545; font-weight: 700; }
+        .nickname-turquoise { color: #26a69a; font-weight: 700; }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #ffe4ec, #e0f7fa);
+            border-radius: 10px;
+            margin-bottom: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #dc3545, #ff6b7a, #4db6ac);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 13px 32px;
+            font-size: 1.02rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.3);
+            margin: 8px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4db6ac, #26a69a);
+            box-shadow: 0 5px 25px rgba(77, 182, 172, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 30px rgba(77, 182, 172, 0.4);
+        }
+
+        /* Rating stars */
+        .rating-section {
+            background: linear-gradient(135deg, #fff9fa, #fff5f7);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #ffb6c1;
+        }
+
+        .rating-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .rating-emoji {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .star-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .star-btn {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            filter: grayscale(1);
+            opacity: 0.4;
+        }
+
+        .star-btn:hover { transform: scale(1.2); }
+        .star-btn.active { filter: grayscale(0); opacity: 1; }
+
+        /* Choice cards */
+        .choice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .choice-card {
+            background: white;
+            border: 2px solid #ffb6c1;
+            border-radius: 15px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .choice-card:hover {
+            border-color: #dc3545;
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.15);
+        }
+
+        .choice-card.selected {
+            background: linear-gradient(135deg, #dc3545, #ff6b7a);
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .choice-card .choice-emoji { font-size: 2rem; margin-bottom: 6px; }
+        .choice-card .choice-text { font-size: 0.85rem; font-weight: 600; }
+
+        /* Full width choice */
+        .choice-full {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .choice-full-card {
+            background: white;
+            border: 2px solid #ffb6c1;
+            border-radius: 15px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .choice-full-card:hover {
+            border-color: #dc3545;
+            transform: translateX(5px);
+        }
+
+        .choice-full-card.selected {
+            background: linear-gradient(135deg, #dc3545, #ff6b7a);
+            color: white;
+            border-color: #dc3545;
+        }
+
+        .choice-full-card .card-emoji { font-size: 1.5rem; }
+        .choice-full-card .card-text { font-size: 0.95rem; font-weight: 500; }
+
+        /* Text input */
+        .text-input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #ffb6c1;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            outline: none;
+            transition: border-color 0.3s ease;
+            text-align: center;
+            resize: none;
+        }
+
+        .text-input:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 12px rgba(220, 53, 69, 0.12);
+        }
+
+        /* Bollywood meme */
+        .bollywood-meme {
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff6b6b 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 20px;
+            padding: 16px;
+            margin: 12px 0;
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        .bollywood-meme .movie-name {
+            font-size: 0.8rem;
+            color: #c0392b;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bollywood-meme .dialogue {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+
+        .bollywood-meme .character {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* Cat thought */
+        .cat-thought {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 18px;
+            padding: 10px 16px;
+            margin: 10px auto;
+            max-width: 85%;
+            font-style: italic;
+            color: #888;
+            font-size: 0.88rem;
+            position: relative;
+        }
+
+        .cat-thought::after {
+            content: '🐾';
+            position: absolute;
+            bottom: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+        }
+
+        /* Superlative reveal */
+        .superlative-card {
+            background: linear-gradient(135deg, #fff5f7, #ffe4ec, #e8f5f4);
+            border: 3px solid #ffb6c1;
+            border-radius: 25px;
+            padding: 22px;
+            margin: 15px 0;
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.2);
+            animation: revealPop 0.5s ease;
+        }
+
+        @keyframes revealPop {
+            0% { transform: scale(0.85); opacity: 0; }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .superlative-title {
+            font-size: 0.85rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .superlative-value {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.6rem;
+            color: #dc3545;
+        }
+
+        /* Report card table */
+        .report-card {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+            margin: 15px 0;
+        }
+
+        .report-card td {
+            padding: 10px 12px;
+            background: #fff9fa;
+            font-size: 0.9rem;
+        }
+
+        .report-card td:first-child {
+            border-radius: 10px 0 0 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: left;
+        }
+
+        .report-card td:last-child {
+            border-radius: 0 10px 10px 0;
+            text-align: right;
+            font-size: 1.1rem;
+        }
+
+        /* Overall score circle */
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #dc3545, #ff6b7a);
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 30px rgba(220, 53, 69, 0.3);
+            margin: 15px 0;
+        }
+
+        .score-circle .score-num {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .score-circle .score-of {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confetti-fall 3s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Love letter */
+        .love-letter {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #dc3545;
+            background: linear-gradient(135deg, #fff9fa, #fff5f7, #fef0f3);
+            padding: 25px 20px;
+            border-radius: 20px;
+            border: 2px solid #ffcdd2;
+            box-shadow: inset 0 0 25px rgba(255, 182, 193, 0.15);
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .love-letter::before {
+            content: '❤';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            background: white;
+            padding: 0 8px;
+        }
+
+        .love-letter p { color: #dc3545; margin-bottom: 8px; }
+
+        .hidden { display: none !important; }
+
+        /* Music */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 25px rgba(220, 53, 69, 0.35);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-control:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <button class="music-control" id="music-btn" onclick="toggleMusic()">🔇</button>
+
+    <div class="container">
+        <span class="paw-decoration paw-1">🐾</span>
+        <span class="paw-decoration paw-2">🐾</span>
+        <span class="paw-decoration paw-3">🐾</span>
+        <span class="paw-decoration paw-4">🐾</span>
+
+        <!-- ========== STAGE 0: Welcome ========== -->
+        <div class="stage active" id="stage0">
+            <div class="emoji-big">🌙</div>
+            <h1>What a Day, Alishu!</h1>
+            <p>Your <span class="nickname-highlight">Gold Fish</span> wants to know...</p>
+            <p>How did today go? Let's relive it together 🐱💝</p>
+            <div class="cat-thought">Time to be the judge, jury, and queen of this day 👑</div>
+            <button class="btn" onclick="startRecap()">Let's Recap! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 1: Rate Brunch ========== -->
+        <div class="stage" id="stage1">
+            <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
+            <h2>🥂 Grammar Room Brunch</h2>
+            <p>The boozy brunch at Khan Market — how was it?</p>
+
+            <div class="rating-section">
+                <div class="rating-label">Rate the Brunch!</div>
+                <div class="rating-emoji">😐 → 🤩</div>
+                <div class="star-row" id="stars-1">
+                    <button class="star-btn" onclick="rate(1, 1)">❤️</button>
+                    <button class="star-btn" onclick="rate(1, 2)">❤️</button>
+                    <button class="star-btn" onclick="rate(1, 3)">❤️</button>
+                    <button class="star-btn" onclick="rate(1, 4)">❤️</button>
+                    <button class="star-btn" onclick="rate(1, 5)">❤️</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999;">What was the best part?</p>
+            <div class="choice-grid">
+                <div class="choice-card" onclick="selectChoice(this, 'brunch-best')">
+                    <div class="choice-emoji">🍳</div>
+                    <div class="choice-text">The Food</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'brunch-best')">
+                    <div class="choice-emoji">🍹</div>
+                    <div class="choice-text">The Drinks</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'brunch-best')">
+                    <div class="choice-emoji">💕</div>
+                    <div class="choice-text">The Company</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'brunch-best')">
+                    <div class="choice-emoji">✨</div>
+                    <div class="choice-text">The Vibes</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Next! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 2: Rate Sunder Nursery ========== -->
+        <div class="stage" id="stage2">
+            <div class="progress-bar"><div class="progress" style="width: 22%"></div></div>
+            <h2>🌿 Sunder Nursery Picnic</h2>
+            <p>Blankets, nature, coffee and us...</p>
+
+            <div class="rating-section">
+                <div class="rating-label">Rate the Picnic!</div>
+                <div class="rating-emoji">😐 → 🤩</div>
+                <div class="star-row" id="stars-2">
+                    <button class="star-btn" onclick="rate(2, 1)">❤️</button>
+                    <button class="star-btn" onclick="rate(2, 2)">❤️</button>
+                    <button class="star-btn" onclick="rate(2, 3)">❤️</button>
+                    <button class="star-btn" onclick="rate(2, 4)">❤️</button>
+                    <button class="star-btn" onclick="rate(2, 5)">❤️</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999;">Best moment at the nursery?</p>
+            <div class="choice-grid">
+                <div class="choice-card" onclick="selectChoice(this, 'picnic-best')">
+                    <div class="choice-emoji">🧺</div>
+                    <div class="choice-text">The Picnic</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'picnic-best')">
+                    <div class="choice-emoji">🚶‍♀️</div>
+                    <div class="choice-text">The Walk</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'picnic-best')">
+                    <div class="choice-emoji">☕</div>
+                    <div class="choice-text">The Coffee</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'picnic-best')">
+                    <div class="choice-emoji">📸</div>
+                    <div class="choice-text">The Photos</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Next! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 3: Rate Shopping ========== -->
+        <div class="stage" id="stage3">
+            <div class="progress-bar"><div class="progress" style="width: 34%"></div></div>
+            <h2>👗 Dress Shopping</h2>
+            <p>The moment <span class="nickname-turquoise">Aloo</span> became a fashion queen...</p>
+
+            <div class="rating-section">
+                <div class="rating-label">Rate the Shopping!</div>
+                <div class="rating-emoji">😐 → 🤩</div>
+                <div class="star-row" id="stars-3">
+                    <button class="star-btn" onclick="rate(3, 1)">❤️</button>
+                    <button class="star-btn" onclick="rate(3, 2)">❤️</button>
+                    <button class="star-btn" onclick="rate(3, 3)">❤️</button>
+                    <button class="star-btn" onclick="rate(3, 4)">❤️</button>
+                    <button class="star-btn" onclick="rate(3, 5)">❤️</button>
+                </div>
+            </div>
+
+            <div class="bollywood-meme">
+                <div class="movie-name">🎬 Jab We Met</div>
+                <div class="dialogue">"Main apni favourite hoon!"</div>
+                <div class="character">— Alisha in every fitting room 👗💃</div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999;">Was DT's wallet okay? 😂</p>
+            <div class="choice-full">
+                <div class="choice-full-card" onclick="selectChoice(this, 'wallet')">
+                    <span class="card-emoji">😌</span>
+                    <span class="card-text">Totally under budget!</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'wallet')">
+                    <span class="card-emoji">😅</span>
+                    <span class="card-text">A little over... but worth it!</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'wallet')">
+                    <span class="card-emoji">💸</span>
+                    <span class="card-text">RIP Gold Fish's wallet</span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Next! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 4: Rate Cozy Night ========== -->
+        <div class="stage" id="stage4">
+            <div class="progress-bar"><div class="progress" style="width: 46%"></div></div>
+            <h2>🕯️ Cozy Night at Home</h2>
+            <p>Candles, wine, video games, and THE food...</p>
+
+            <div class="rating-section">
+                <div class="rating-label">Rate the Evening!</div>
+                <div class="rating-emoji">😐 → 🤩</div>
+                <div class="star-row" id="stars-4">
+                    <button class="star-btn" onclick="rate(4, 1)">❤️</button>
+                    <button class="star-btn" onclick="rate(4, 2)">❤️</button>
+                    <button class="star-btn" onclick="rate(4, 3)">❤️</button>
+                    <button class="star-btn" onclick="rate(4, 4)">❤️</button>
+                    <button class="star-btn" onclick="rate(4, 5)">❤️</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999;">Best part of the evening?</p>
+            <div class="choice-grid">
+                <div class="choice-card" onclick="selectChoice(this, 'evening-best')">
+                    <div class="choice-emoji">🍜</div>
+                    <div class="choice-text">DT's Laksa</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'evening-best')">
+                    <div class="choice-emoji">🥟</div>
+                    <div class="choice-text">Momos!</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'evening-best')">
+                    <div class="choice-emoji">🎮</div>
+                    <div class="choice-text">Video Games</div>
+                </div>
+                <div class="choice-card" onclick="selectChoice(this, 'evening-best')">
+                    <div class="choice-emoji">🍷</div>
+                    <div class="choice-text">Wine & Candles</div>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999; margin-top: 5px;">Rate DT's Laksa specifically 😏</p>
+            <div class="star-row" id="stars-laksa">
+                <button class="star-btn" onclick="rateLaksa(1)">⭐</button>
+                <button class="star-btn" onclick="rateLaksa(2)">⭐</button>
+                <button class="star-btn" onclick="rateLaksa(3)">⭐</button>
+                <button class="star-btn" onclick="rateLaksa(4)">⭐</button>
+                <button class="star-btn" onclick="rateLaksa(5)">⭐</button>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Next! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 5: Rate Night Out ========== -->
+        <div class="stage" id="stage5">
+            <div class="progress-bar"><div class="progress" style="width: 58%"></div></div>
+            <h2>🍸 Night Out</h2>
+            <p>The grand finale of the night!</p>
+
+            <div class="rating-section">
+                <div class="rating-label">Rate the Night Out!</div>
+                <div class="rating-emoji">😐 → 🤩</div>
+                <div class="star-row" id="stars-5">
+                    <button class="star-btn" onclick="rate(5, 1)">❤️</button>
+                    <button class="star-btn" onclick="rate(5, 2)">❤️</button>
+                    <button class="star-btn" onclick="rate(5, 3)">❤️</button>
+                    <button class="star-btn" onclick="rate(5, 4)">❤️</button>
+                    <button class="star-btn" onclick="rate(5, 5)">❤️</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: #999;">Did Daaru Badnaam play? 🎵</p>
+            <div class="choice-full">
+                <div class="choice-full-card" onclick="selectChoice(this, 'daaru')">
+                    <span class="card-emoji">🎶</span>
+                    <span class="card-text">YES and we killed it!</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'daaru')">
+                    <span class="card-emoji">😤</span>
+                    <span class="card-text">No, DT needs to request better</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'daaru')">
+                    <span class="card-emoji">🕺</span>
+                    <span class="card-text">We didn't need it, we were vibing anyway!</span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Almost Done! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 6: Fun Superlatives ========== -->
+        <div class="stage" id="stage6">
+            <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+            <h2>🏆 Award Time!</h2>
+            <p>Time for the Valentine's Day Awards... 🐱</p>
+
+            <p style="font-size: 0.95rem; font-weight: 600; color: #2c3e50;">Most Romantic Moment of the Day?</p>
+            <div class="choice-full">
+                <div class="choice-full-card" onclick="selectChoice(this, 'romantic')">
+                    <span class="card-emoji">🥂</span>
+                    <span class="card-text">Brunch at Grammar Room</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'romantic')">
+                    <span class="card-emoji">🌿</span>
+                    <span class="card-text">Sunder Nursery Picnic</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'romantic')">
+                    <span class="card-emoji">🕯️</span>
+                    <span class="card-text">Candlelit Evening at Home</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'romantic')">
+                    <span class="card-emoji">🌃</span>
+                    <span class="card-text">The Night Out</span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">Next Award! 🏆</button>
+        </div>
+
+        <!-- ========== STAGE 7: More Superlatives ========== -->
+        <div class="stage" id="stage7">
+            <div class="progress-bar"><div class="progress" style="width: 78%"></div></div>
+            <h2>🎭 More Awards!</h2>
+
+            <p style="font-size: 0.95rem; font-weight: 600; color: #2c3e50;">Funniest Moment of the Day?</p>
+            <textarea class="text-input" id="funny-moment" placeholder="What made you laugh the most today?" rows="2"></textarea>
+
+            <p style="font-size: 0.95rem; font-weight: 600; color: #2c3e50; margin-top: 15px;">Best DT Moment?</p>
+            <div class="choice-full">
+                <div class="choice-full-card" onclick="selectChoice(this, 'dt-moment')">
+                    <span class="card-emoji">👨‍🍳</span>
+                    <span class="card-text">DT the Chef (Laksa king!)</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'dt-moment')">
+                    <span class="card-emoji">💸</span>
+                    <span class="card-text">DT the Generous (Dress shopping!)</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'dt-moment')">
+                    <span class="card-emoji">🧠</span>
+                    <span class="card-text">DT the Planner (This whole day!)</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'dt-moment')">
+                    <span class="card-emoji">🐟</span>
+                    <span class="card-text">DT the Gold Fish (Just being him!)</span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="nextStageWithSound()">One More! 🐾</button>
+        </div>
+
+        <!-- ========== STAGE 8: Rate DT Overall ========== -->
+        <div class="stage" id="stage8">
+            <div class="progress-bar"><div class="progress" style="width: 86%"></div></div>
+            <h2>📊 Rate Your Gold Fish!</h2>
+            <p>The moment of truth, <span class="nickname-turquoise">Aloo</span>... 😼</p>
+
+            <div class="rating-section">
+                <div class="rating-label">DT's Overall Valentine's Day Planning</div>
+                <div class="rating-emoji">🐟 Did the Gold Fish deliver?</div>
+                <div class="star-row" id="stars-dt">
+                    <button class="star-btn" onclick="rateDT(1)">💝</button>
+                    <button class="star-btn" onclick="rateDT(2)">💝</button>
+                    <button class="star-btn" onclick="rateDT(3)">💝</button>
+                    <button class="star-btn" onclick="rateDT(4)">💝</button>
+                    <button class="star-btn" onclick="rateDT(5)">💝</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.95rem; font-weight: 600; color: #2c3e50;">Would you let DT plan again?</p>
+            <div class="choice-full">
+                <div class="choice-full-card" onclick="selectChoice(this, 'plan-again')">
+                    <span class="card-emoji">🔥</span>
+                    <span class="card-text">Obviously YES, king DT!</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'plan-again')">
+                    <span class="card-emoji">🤝</span>
+                    <span class="card-text">Yes, but I want to help next time</span>
+                </div>
+                <div class="choice-full-card" onclick="selectChoice(this, 'plan-again')">
+                    <span class="card-emoji">😂</span>
+                    <span class="card-text">Let's not push our luck 😂</span>
+                </div>
+            </div>
+
+            <button class="btn" onclick="showResults()">Show My Report Card! 📋</button>
+        </div>
+
+        <!-- ========== STAGE 9: Final Report Card ========== -->
+        <div class="stage" id="stage9">
+            <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            <h1>📋 The Report Card!</h1>
+            <p>Alisha's Official Valentine's Day Review 🐱</p>
+
+            <div class="score-circle">
+                <div class="score-num" id="overall-score">—</div>
+                <div class="score-of">out of 5</div>
+            </div>
+
+            <table class="report-card">
+                <tr><td>🥂 Grammar Room</td><td id="rc-1">—</td></tr>
+                <tr><td>🌿 Sunder Nursery</td><td id="rc-2">—</td></tr>
+                <tr><td>👗 Dress Shopping</td><td id="rc-3">—</td></tr>
+                <tr><td>🕯️ Cozy Night In</td><td id="rc-4">—</td></tr>
+                <tr><td>🍸 Night Out</td><td id="rc-5">—</td></tr>
+                <tr><td>🍜 DT's Laksa</td><td id="rc-laksa">—</td></tr>
+                <tr style="background: linear-gradient(135deg, #fff5f7, #ffe4ec);"><td>💝 <strong>DT Overall</strong></td><td id="rc-dt" style="font-size: 1.3rem;">—</td></tr>
+            </table>
+
+            <p id="verdict-message" style="font-weight: 600; color: #dc3545; font-size: 1.1rem;"></p>
+
+            <div class="bollywood-meme">
+                <div class="movie-name">🎬 DDLJ</div>
+                <div class="dialogue" id="final-dialogue">"Bade bade deshon mein... chhoti chhoti baatein hoti rehti hain"</div>
+                <div class="character">— Except today, everything was BIG! 💝</div>
+            </div>
+
+            <button class="btn" onclick="showLoveLetter()">One Last Thing... 💌</button>
+        </div>
+
+        <!-- ========== STAGE 10: Love Letter ========== -->
+        <div class="stage" id="stage10">
+            <div class="emoji-big" style="animation: heartbeat 1.5s infinite;">💌</div>
+            <h1>From Your Gold Fish...</h1>
+
+            <div class="love-letter">
+                <p>Dear Alishu,</p>
+                <p>Today was everything because YOU were in it.</p>
+                <p>From our boozy brunch to dancing the night away — every moment with you is my favourite.</p>
+                <p>Thank you for being my person, my Aloo, my everything. 🥔💕</p>
+                <p>Here's to us — today, tomorrow, and always.</p>
+                <p style="margin-top: 12px; font-size: 1.4rem;">— Your King DT 👑🐟</p>
+            </div>
+
+            <div style="font-size: 3rem; margin: 15px 0;">🐱 + 🐟 = ❤️</div>
+            <p><em>Dhruv + Alisha = Forever</em></p>
+
+            <button class="btn btn-secondary" onclick="location.reload()">Relive It Again? 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 0;
+        let audioContext = null;
+        let isMusicPlaying = false;
+
+        // Ratings
+        const ratings = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+        let laksaRating = 0;
+        let dtRating = 0;
+        const choices = {};
+
+        // ========== AUDIO ==========
+        function initAudio() {
+            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        function playSwoosh() {
+            if (!audioContext) return;
+            try {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain); gain.connect(audioContext.destination);
+                osc.frequency.setValueAtTime(800, audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+                osc.start(audioContext.currentTime); osc.stop(audioContext.currentTime + 0.15);
+            } catch(e) {}
+        }
+
+        function playClick() {
+            if (!audioContext) return;
+            try {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain); gain.connect(audioContext.destination);
+                osc.frequency.setValueAtTime(600, audioContext.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+                osc.start(audioContext.currentTime); osc.stop(audioContext.currentTime + 0.05);
+            } catch(e) {}
+        }
+
+        function playSuccess() {
+            if (!audioContext) return;
+            try {
+                [523.25, 659.25, 783.99].forEach((freq, i) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain); gain.connect(audioContext.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.08, audioContext.currentTime + i * 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2);
+                    osc.start(audioContext.currentTime + i * 0.1);
+                    osc.stop(audioContext.currentTime + i * 0.1 + 0.2);
+                });
+            } catch(e) {}
+        }
+
+        function playCelebration() {
+            if (!audioContext) return;
+            try {
+                const notes = [523.25, 587.33, 659.25, 698.46, 783.99, 880, 987.77, 1046.5];
+                notes.forEach((freq, i) => {
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    osc.connect(gain); gain.connect(audioContext.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.07, audioContext.currentTime + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.08 + 0.15);
+                    osc.start(audioContext.currentTime + i * 0.08);
+                    osc.stop(audioContext.currentTime + i * 0.08 + 0.15);
+                });
+            } catch(e) {}
+        }
+
+        // ========== STARS BACKGROUND ==========
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.width = (Math.random() * 3 + 1) + 'px';
+                star.style.height = star.style.width;
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // ========== MUSIC ==========
+        function toggleMusic() {
+            initAudio();
+            const btn = document.getElementById('music-btn');
+            isMusicPlaying = !isMusicPlaying;
+            btn.textContent = isMusicPlaying ? '🔊' : '🔇';
+        }
+
+        // ========== NAVIGATION ==========
+        function nextStage() {
+            document.getElementById('stage' + currentStage).classList.remove('active');
+            currentStage++;
+            document.getElementById('stage' + currentStage).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextStageWithSound() {
+            playSwoosh();
+            nextStage();
+        }
+
+        function startRecap() {
+            initAudio();
+            playSuccess();
+            nextStage();
+        }
+
+        // ========== RATING ==========
+        function rate(activity, value) {
+            playClick();
+            ratings[activity] = value;
+            const stars = document.querySelectorAll('#stars-' + activity + ' .star-btn');
+            stars.forEach((star, i) => {
+                star.classList.toggle('active', i < value);
+            });
+        }
+
+        function rateLaksa(value) {
+            playClick();
+            laksaRating = value;
+            const stars = document.querySelectorAll('#stars-laksa .star-btn');
+            stars.forEach((star, i) => {
+                star.classList.toggle('active', i < value);
+            });
+        }
+
+        function rateDT(value) {
+            playClick();
+            dtRating = value;
+            const stars = document.querySelectorAll('#stars-dt .star-btn');
+            stars.forEach((star, i) => {
+                star.classList.toggle('active', i < value);
+            });
+        }
+
+        // ========== CHOICES ==========
+        function selectChoice(card, category) {
+            playClick();
+            // Deselect siblings
+            const parent = card.parentElement;
+            parent.querySelectorAll('.choice-card, .choice-full-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            choices[category] = card.querySelector('.choice-text, .card-text').textContent;
+        }
+
+        // ========== RESULTS ==========
+        function showResults() {
+            playCelebration();
+            nextStage();
+
+            // Fill report card
+            const heartStr = (n) => n > 0 ? '❤️'.repeat(n) : '—';
+            const starStr = (n) => n > 0 ? '⭐'.repeat(n) : '—';
+
+            document.getElementById('rc-1').textContent = heartStr(ratings[1]);
+            document.getElementById('rc-2').textContent = heartStr(ratings[2]);
+            document.getElementById('rc-3').textContent = heartStr(ratings[3]);
+            document.getElementById('rc-4').textContent = heartStr(ratings[4]);
+            document.getElementById('rc-5').textContent = heartStr(ratings[5]);
+            document.getElementById('rc-laksa').textContent = starStr(laksaRating);
+            document.getElementById('rc-dt').textContent = dtRating > 0 ? '💝'.repeat(dtRating) : '—';
+
+            // Calculate average
+            const allRatings = Object.values(ratings).filter(r => r > 0);
+            const avg = allRatings.length > 0 ? (allRatings.reduce((a, b) => a + b, 0) / allRatings.length).toFixed(1) : '—';
+            document.getElementById('overall-score').textContent = avg;
+
+            // Verdict
+            const msgEl = document.getElementById('verdict-message');
+            const avgNum = parseFloat(avg);
+            if (avgNum >= 4.5) {
+                msgEl.textContent = "PERFECT DAY! 🐟 Gold Fish = Best Fish! 💝";
+            } else if (avgNum >= 3.5) {
+                msgEl.textContent = "Amazing day! DT delivered big time! 🔥";
+            } else if (avgNum >= 2.5) {
+                msgEl.textContent = "Not bad, Gold Fish! Room to improve next time 😏";
+            } else if (avgNum > 0) {
+                msgEl.textContent = "Uh oh... DT has some making up to do! 😅";
+            } else {
+                msgEl.textContent = "You forgot to rate! Tap the hearts next time 😂";
+            }
+
+            // Confetti
+            const colors = ['#dc3545', '#ff6b7a', '#ffb6c1', '#4db6ac', '#26a69a', '#ffd700'];
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 25);
+            }
+        }
+
+        function showLoveLetter() {
+            playSuccess();
+            nextStage();
+        }
+    </script>
+</body>
+</html>
